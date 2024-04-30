@@ -43,16 +43,42 @@
       </div>
 
       <div class="row">
+        {% if products.has_other_pages %}
             <div class="col-12">
                 <nav class="mt-4" aria-label="Page navigation sample">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item prev "data-controls="prev"><a class="page-link" href="#">&#8249;</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                        <!-- previous page -->
+                        {% if products.has_previous %}
+                            <li class="page-itemy"><a class="page-link round" href="?page={{ products.previous_page_number }}">&#8249;</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">&#8249;</a></li>
+                        {% endif %}
+                        <!-- previous page // -->
+                        
+                        <!-- Paginator -->
+                        {% for p in products.paginator.page_range %}
+                            {% if products.number == p %}
+                            <li class="btn-primary active"><a class="page-link" href="#">{{ p }}</a></li>
+                            {% else %}
+                            <li class="btn-primary active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- Paginator // -->
+
+
+                        <!-- Next page -->
+                        {% if products.has_next %}
                         <li class="page-item"><a class="page-link" href="">&#8250;</a></li>
+                        {% else %}
+                        <li class="page-item disabled "><a class="page-link" href="">&#8250;</a></li>
+                        {% endif %}
+                        <!-- Next page // -->
+
                     </ul>
                 </nav>
             </div>
+        {% endif %}
         </div>
       
 </div>

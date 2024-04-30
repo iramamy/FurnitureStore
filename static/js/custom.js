@@ -23,9 +23,6 @@
 	};
 	tinyslider();
 
-	
-
-
 	var sitePlusMinus = function() {
 
 		var value,
@@ -68,6 +65,5 @@
 		
 	};
 	sitePlusMinus();
-
 
 })()
