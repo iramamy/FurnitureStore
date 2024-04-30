@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "category",
     "accounts",
+    "shop",
 ]
 
 MIDDLEWARE = [
@@ -69,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION    = "funi.wsgi.application"
+WSGI_APPLICATION     = "funi.wsgi.application"
 AUTH_USER_MODEL     = "accounts.Account"    
 
 
@@ -123,6 +124,11 @@ STATIC_ROOT = BASE_DIR /"static"
 STATICFILES_DIRS = [
     "funi/static",
 ]
+
+# Media files configurations
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
