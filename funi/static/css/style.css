@@ -175,6 +175,10 @@ a {
   margin-right: 0; /* Remove margin for the last icon */
 }
 
+.header-icon {
+  text-decoration: none; /* Remove underline from links */
+}
+
 /* ##################################################################### */
 
 
