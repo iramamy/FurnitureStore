@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block contenct %}
+{% block content %}
 
 <!-- Start Hero Section -->
 <div class="hero">
@@ -49,7 +49,7 @@
                     <ul class="pagination justify-content-center">
                         <!-- previous page -->
                         {% if products.has_previous %}
-                            <li class="page-itemy"><a class="page-link round" href="?page={{ products.previous_page_number }}">&#8249;</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}">&#8249;</a></li>
                             {% else %}
                             <li class="page-item disabled"><a class="page-link" href="#">&#8249;</a></li>
                         {% endif %}
@@ -58,7 +58,7 @@
                         <!-- Paginator -->
                         {% for p in products.paginator.page_range %}
                             {% if products.number == p %}
-                            <li class="btn-primary active"><a class="page-link" href="#">{{ p }}</a></li>
+                            <li class=" active"><a class="page-link" href="#">{{ p }}</a></li>
                             {% else %}
                             <li class="btn-primary active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
                             {% endif %}
@@ -69,7 +69,7 @@
 
                         <!-- Next page -->
                         {% if products.has_next %}
-                        <li class="page-item"><a class="page-link" href="">&#8250;</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}">&#8250;</a></li>
                         {% else %}
                         <li class="page-item disabled "><a class="page-link" href="">&#8250;</a></li>
                         {% endif %}

@@ -157,6 +157,26 @@ a {
       @media (min-width: 1200px) {
         .hero .hero-img-wrap:after {
           top: -40px; } }
+/* ##################################################################### */
+
+/* Footer social icon */
+
+.custom-social {
+  /* display: flex; */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.custom-social li a{
+  padding: 12px /* Adjust spacing between icons */
+}
+
+.custom-social li:last-child {
+  margin-right: 0; /* Remove margin for the last icon */
+}
+
+/* ##################################################################### */
+
 
 .btn {
   font-weight: 600;
@@ -446,6 +466,19 @@ a {
     z-index: 99;
     width: 100%;
     display: none; }
+
+#testimonial-nav{
+  display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+}
+
+#testimonial-nav .prev,
+#testimonial-nav .next {
+    padding: 20px ; /* Adjust spacing between icons */
+}
+
+
     @media (min-width: 768px) {
       .testimonial-slider-wrap #testimonial-nav {
         display: block; } }
@@ -650,6 +683,9 @@ a {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 50px;
     flex: 0 0 50px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
     height: 50px;
     line-height: 50px;
     text-align: center;
