@@ -181,6 +181,51 @@ a {
 
 /* ##################################################################### */
 
+.custom-btn {
+  font-weight: 300;
+  padding: 3px 12px;
+  border-radius: 30px;
+  color: #ffffff;
+  background: transparent; /* Set background to transparent */
+  border: 1px solid #2f2f2f; /* Set default border color */
+  text-decoration: none;
+}
+
+.custom-btn-outline-primary {
+  color: #2f2f2f;
+  border-color: #2f2f2f;
+}
+.custom-active{
+  background-color: #3b5d50;
+  color: #ffffff;
+}
+
+.custom-btn-outline-primary:hover {
+  color: #fff;
+  background-color: #2f2f2f;
+  border-color: #2f2f2f;
+}
+
+.custom-btn-outline-primary:active,
+.custom-btn-outline-primary.active,
+.custom-btn-outline-primary.dropdown-toggle.show,
+.btn-check:checked+.custom-btn-outline-primary {
+  color: #fff;
+  background-color: #2f2f2f; 
+  border-color: #2f2f2f;
+}
+
+.custom-btn-outline-primary.disabled,
+.custom-btn-outline-primary:disabled {
+  color: #0d6efd;
+  background-color: transparent;
+}
+.custom-dropdown-item.active,
+.custom-dropdown-item:active {
+  color: #fff;
+  background-color: #2f2f2f;/* Change background color when clicked */
+}
+
 .btn {
   font-weight: 600;
   padding: 12px 30px;

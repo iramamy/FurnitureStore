@@ -40,8 +40,8 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item disabled" href="#" disable>{{ user.first_name }}</a>
-                            <a class="dropdown-item" href="#">Dashboard</a>
-                            <a class="dropdown-item" href="{% url 'signout' %}">Sign out</a>
+                            <a class="dropdown-item custom-dropdown-item" href="{% url 'dashboard' %}">Dashboard</a>
+                            <a class="dropdown-item custom-dropdown-item" href="{% url 'signout' %}">Sign out</a>
                         </div>
                     </div>
                 </li>

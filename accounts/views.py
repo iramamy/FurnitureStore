@@ -121,3 +121,8 @@ def signout(request):
     messages.success(request, "You are logged out!")
 
     return redirect('signin')
+
+
+@login_required(login_url='signin')
+def dashboard(request):
+    return render(request, 'accounts/dashboard.html')

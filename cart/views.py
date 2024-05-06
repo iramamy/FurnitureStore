@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 from shop.models import Product
 from .models import Cart, CartItem
 
@@ -56,6 +57,8 @@ def remove_cart_item(request, product_id):
 
     return  redirect('cart')
 
+
+@login_required(login_url='signin')
 def cart(request, total=0, quantity=0, cart_items=None):
     tax, grand_total        = 0, 0
     try:
