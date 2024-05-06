@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-# Create your models here.
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -70,6 +69,7 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
 
         return user
+
 
 class Account(AbstractBaseUser):
     first_name              = models.CharField(max_length=150)
