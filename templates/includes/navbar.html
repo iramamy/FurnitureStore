@@ -1,6 +1,4 @@
 {% load static %}
-
-
 <!-- Start Header/Navigation -->
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
@@ -11,21 +9,20 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarsFurni">
+        <div class="collapse navbar-collapse">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
-                </li>
+                <li><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                 <li><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
                 <li><a class="nav-link" href="{% url 'about' %}">About us</a></li>
                 <li><a class="nav-link" href="{% url 'service' %}">Services</a></li>
                 <li><a class="nav-link" href="{% url 'contact' %}">Contact us</a></li>
             </ul>
 
-            <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0">
+            <ul class="custom-navbar-cta navbar-nav mb-md-0">
+                {% if user.id is None %}
                 <li class="widget-header">
                     <div class="header-icon dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown" >
                             <img src="{% static 'images/user.svg' %}">
                         </a>
                         <div class="dropdown-menu">
@@ -34,12 +31,28 @@
                         </div>
                     </div>
                 </li>
-                
+                {% else %}
+
                 <li class="widget-header">
+                    <div class="header-icon dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown" >
+                            <img src="{% static 'images/user.svg' %}">
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item disabled" href="#" disable>{{ user.first_name }}</a>
+                            <a class="dropdown-item" href="#">Dashboard</a>
+                            <a class="dropdown-item" href="{% url 'signout' %}">Sign out</a>
+                        </div>
+                    </div>
+                </li>
+                
+                {% endif %}
+
+                <li class="widget-header mt-1">
                     <a  href="{% url 'cart' %}"  class="header-icon">
                         <div class="nav-link">
-                            <img src="{% static 'images/cart.svg' %}">
-                            <span class="badge badge-pill badge-danger">{{ cart_count }}</span>
+                            <img src="{% static 'images/cart.svg' %}" class="position-relative">
+                            <span class="position-absolute translate-middle rounded-pill badge badge-warning">{{ cart_count }}</span>
                         </div>
                     </a>
                 </li>
