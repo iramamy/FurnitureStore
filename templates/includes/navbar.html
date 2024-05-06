@@ -23,13 +23,18 @@
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0">
-                <li class=" mt-1 widget-header">
-                    <a  href="#" class="header-icon">
-                        <div class="nav-link">
+                <li class="widget-header">
+                    <div class="header-icon dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown">
                             <img src="{% static 'images/user.svg' %}">
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'signin' %}">Sign in</a>
+                            <a class="dropdown-item" href="{% url 'register' %}">Register</a>
                         </div>
-                    </a>
+                    </div>
                 </li>
+                
                 <li class="widget-header">
                     <a  href="{% url 'cart' %}"  class="header-icon">
                         <div class="nav-link">
