@@ -83,7 +83,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
         "quantity": quantity,
         'cart_items': cart_items,
         'tax': tax,
-        'grand_total's: grand_total,
+        'grand_total': grand_total,
     }
 
     return render(request, 'shop/cart.html', context)
