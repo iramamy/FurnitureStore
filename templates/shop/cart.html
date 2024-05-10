@@ -37,7 +37,7 @@
                 {% for cart_item in cart_items %}
                 <tr>
                   <td class="product-thumbnail">
-                    <a href="{{ cart_item.product.get_url }}"><img src="{{ cart_item.product.images.url }}" alt="Image" class="img-fluid "></a>
+                    <a href="{{ cart_item.product.get_url }}"><img src="{{ cart_item.product.images.url }}" alt="Image" class="img-md"></a>
                   </td>
                   <td class="product-name">
                     <h2 class="h5 text-black"><a href="{{ cart_item.product.get_url }}" style="text-decoration: none;">{{cart_item.product.product_name}}</a></h2>
@@ -85,7 +85,7 @@
               <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
             </div>
             <div class="col-md-4">
-              <button class="btn btn-black">Apply Coupon</button>
+              <button class="btn btn-outline-black btn-sm btn-block mb-3">Apply Coupon</button>
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@
 
               <div class="row">
                 <div class="col-md-12">
-                  <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                  <a href="{% url 'checkout' %}" class="btn btn-outline-black btn-sm btn-block" >Proceed To Checkout</a>
                 </div>
               </div>
             </div>
