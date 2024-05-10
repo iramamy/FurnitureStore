@@ -596,6 +596,7 @@ a {
       .testimonial-slider-wrap .tns-nav button:hover:before, .testimonial-slider-wrap .tns-nav button.tns-nav-active:before {
         background-color: #3b5d50; }
 
+
 .blog-section {
   padding: 7rem 0 12rem 0; }
   .blog-section .post-entry a {
@@ -710,7 +711,7 @@ a {
       font-size: 14px !important; }
 
 .untree_co-section {
-  padding: 7rem 0; }
+  padding: 5rem 0 3rem 0; }
 
 .form-control {
   height: 50px;
