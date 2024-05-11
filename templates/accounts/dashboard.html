@@ -8,8 +8,8 @@
 
     <div class="container my-4">
         {% include 'includes/alerts.html' %}
-        <div class="row">
-        <aside class="col-md-3">
+        <div class="row mt-5">
+        <aside class="col-md-3 mb-4">
             <!--   SIDEBAR   -->
             <ul class="list-group">
                 <a class="list-group-item custom-active" href="#"> My order history </a>
@@ -58,21 +58,22 @@
             </div> <!-- card-body .// -->
             <div class="table-responsive">
                 <table class="table">
-                    <tr>
-                        <td width="65">
-                            <img src="../images/items/1.jpg" class="img-xs border">
+                    <tr class="clo-8">
+                        <td>
+                            <img src="#" class="img-xs border">
                         </td>
                         <td> 
                             <p class="title mb-0">Product name goes here </p>
                             <var class="price text-muted">USD 145</var>
                         </td>
-                        <td> Seller <br> Nike clothing </td>
-                        <td width="250" class="pt-3"> 
-                            <a href="#" class="custom-btn custom-btn-outline-primary">Track order</a> 
-                            <a href="#" class="custom-btn custom-btn-outline-primary"> Details </a> </td>
+                        <td> Seller <br> Nike clothing </td>                            
                     </tr>
 
                 </table>
+                <div class="text-center pb-3">
+                    <a href="#" class="btn btn-outline-primary mx-2">Track order</a> 
+                    <a href="{% url 'cart' %}" class="btn btn-outline-primary mx-2"> Details </a> </td>
+                </div>
             </div> <!-- table-responsive .end// -->
             </article> <!-- order-group.// --> 
         </main>
