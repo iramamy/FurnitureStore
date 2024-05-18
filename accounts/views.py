@@ -4,7 +4,6 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
 # User activation
-
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode

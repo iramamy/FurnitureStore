@@ -73,10 +73,19 @@
             <div class="card-body text-dark">
                 <div class="row d-flex align-items-center">
                     <div class="col d-flex justify-content-start">
-                        <h6>Subtotal price:</h6>
+                        <h6>Subtotal:</h6>
                     </div>
                     <div class="col d-flex justify-content-end">
                         <p>${{total}}</p>
+                    </div>
+                </div>
+
+                <div class="row d-flex align-items-center">
+                    <div class="col d-flex justify-content-start">
+                        <h6>Shipping:</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <p>${{shipping_handling}}</p>
                     </div>
                 </div>
 
@@ -132,6 +141,8 @@
     var csrftoken = getCookie('csrftoken');
     var orderID = '{{order.order_number}}';
     var payment_method = 'PayPal';
+    var redirect_url = '{% url "order_completed" %}';
+
     paypal.Buttons({
 
         style: {
@@ -168,8 +179,10 @@
                             status: details.status,
                         }),
                     })
-                    // .then(response => response.json())
-                    // .then(data => console.log(data));
+                    .then((response) => response.json())
+                    .then((data) => {
+                        window.location.href = redirect_url+'?order_number='+data.order_number+'&payment_id='+data.transID;
+                    });
                 }
             });
         }

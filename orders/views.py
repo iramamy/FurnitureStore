@@ -6,10 +6,13 @@ import json
 from cart.models import CartItem
 from .models import Order, Payment, OrderProduct
 from .forms import OrderForm
+from shop.models import Product
 
+# Send email
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
 
-
-# Create your views here.
+from django.http import JsonResponse
 
 def payments(request):
 
@@ -47,18 +50,45 @@ def payments(request):
         orderproduct.product_id = item.product_id
         orderproduct.quantity = item.quantity
         orderproduct.product_price = item.product.price
-        orderproduct.total_price = item.quantity * item.product.price
+        orderproduct.total_amount = item.quantity * item.product.price
         orderproduct.ordered = True
 
         orderproduct.save()
 
-    # Decrease stock number
+        # Decrease stock number
+        product = Product.objects.get(id=item.product_id)
+        product.stock -= item.quantity
+        product.save()
+
 
     # Clear cart
+    CartItem.objects.filter(user=request.user).delete()
 
     # Email confirmation to user
+    mail_subject = 'Thank you for your order!'
+    message = render_to_string(
+        "orders/order_received_email.html",
+        {
+            'user': request.user,
+            'order': order,
+        })
 
-    return render(request, 'orders/payments.html')
+    to_email = request.user.email
+    send_email = EmailMessage(
+        mail_subject,
+        message,
+        to=[to_email]
+    )
+
+    send_email.send()
+
+    data = {
+        'order_number': order.order_number,
+        'transID': payment.payment_id,
+    }
+
+    # return render(request, 'orders/payments.html')
+    return JsonResponse(data)
 
 def place_order(request, total=0, quantity=0):
 
@@ -69,7 +99,7 @@ def place_order(request, total=0, quantity=0):
     cart_count = cart_item.count()
 
     if cart_count <= 0:
-        return redirect('store')
+        return redirect('shop')
 
     grand_total = 0
     tax = 0
@@ -78,8 +108,9 @@ def place_order(request, total=0, quantity=0):
         total += (item.product.price * item.quantity)
         quantity += item.quantity
 
+    shipping_handling = 10.0
     tax = (2 * total)/100
-    grand_total = total + tax
+    grand_total = total + tax + shipping_handling
 
 
     if request.method == "POST":
@@ -115,7 +146,7 @@ def place_order(request, total=0, quantity=0):
 
             current_date = d.strftime("%Y%m%d")
 
-            order_number = '#'+current_date + str(data.id)
+            order_number = current_date + str(data.id)
 
             data.order_number = order_number
             data.save()
@@ -132,6 +163,7 @@ def place_order(request, total=0, quantity=0):
                 'total': total,
                 'tax': tax,
                 'grand_total': grand_total,   
+                'shipping_handling': shipping_handling,
             }
 
             return render(request, 'orders/payments.html', context)
@@ -140,3 +172,52 @@ def place_order(request, total=0, quantity=0):
 
 
     return render(request, 'orders/place_order.html')
+
+
+def order_completed(request):
+
+    order_number = request.GET.get('order_number')
+    transID = request.GET.get('payment_id')
+
+    print("ABOUT TO ENTER TRY BLOCK")
+    print('order number ', order_number)
+    print('order transID ', transID)
+    try:
+        print("ENTER TRY BLOCK")
+        order = Order.objects.get(
+            order_number=order_number,
+            is_ordered=True,
+        )
+
+        ordered_products = OrderProduct.objects.filter(
+            order_id=order.id
+        )
+
+        subtotal = 0
+        for product in ordered_products:
+            subtotal += product.product_price * product.quantity
+
+        shipping_handling = 10.0 # dummy example
+        tax = order.tax
+        grand_total = subtotal + shipping_handling + tax
+
+        payment = Payment.objects.get(payment_id=transID)
+
+
+        context = {
+            'order': order,
+            'ordered_products': ordered_products,
+            'order_number': order.order_number,
+            'transID': payment.payment_id,
+            'payment': payment,
+            'shipping_handling': shipping_handling,
+            'tax': tax,
+            'grand_total': grand_total,
+            'subtotal': subtotal
+        }
+    
+        return render(request, 'orders/order_completed.html', context)
+
+    except (Payment.DoesNotExist, Order.DoesNotExist):
+        print("ENTER EXCEPT BLOCK")
+        return redirect('home')

@@ -92,21 +92,24 @@ def cart(request, total=0, quantity=0, cart_items=None):
             total += (cart_item.product.price * cart_item.quantity)
             quantity += cart_item.quantity
 
+        shipping_handling = 10.0
         tax = (2 * total)/100
-        grand_total = tax + total
+        grand_total = tax + total + shipping_handling
 
-    except ObjectDoesNotExist:
-        pass
-
-    context = {
+        context = {
         'total': total,
         "quantity": quantity,
         'cart_items': cart_items,
         'tax': tax,
         'grand_total': grand_total,
-    }
+        'shipping_handling': shipping_handling
+        }
 
-    return render(request, 'shop/cart.html', context)
+        return render(request, 'shop/cart.html', context)
+
+    except ObjectDoesNotExist:
+        pass
+
 
 def checkout(request, total=0, quantity=0, cart_items=None):
 
@@ -123,18 +126,20 @@ def checkout(request, total=0, quantity=0, cart_items=None):
             total += (cart_item.product.price * cart_item.quantity)
             quantity += cart_item.quantity
 
+        shipping_handling = 10.0
         tax = (2 * total)/100
-        grand_total = tax + total
+        grand_total = tax + total + shipping_handling
 
-    except ObjectDoesNotExist:
-        pass
-
-    context = {
+        context = {
         'total': total,
         "quantity": quantity,
         'cart_items': cart_items,
         'tax': tax,
         'grand_total': grand_total,
-    }
+        'shipping_handling': shipping_handling
+        }
 
-    return render(request, "shop/checkout.html", context)
+        return render(request, "shop/checkout.html", context)
+
+    except ObjectDoesNotExist:
+        pass

@@ -23,9 +23,11 @@
                     <a  href="{% url 'cart' %}"  class="header-icon">
                         <div class="nav-link">
                             <img src="{% static 'images/cart.svg' %}" class="position-relative">
+                            {% if cart_count > 0%}
                             <span class="position-absolute translate-middle rounded-pill badge badge-warning">
                                 {{ cart_count }}
                             </span>
+                            {% endif %}
                         </div>
                     </a>
                 </li>
