@@ -5,18 +5,19 @@
 
 <div class="container">
     <form method="post">
+        {% csrf_token %}
         <div class="row my-4">
             <div class="col-lg-6">
                 <div class="card-body">
                     <h4 class="card-title">Billing address</h4>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for=""><strong>First name </strong><small>(optional)</small></label>
-                            <input type="text" name="first_name" class="form-control">
+                            <label for=""><strong>First name </strong></label>
+                            <input type="text" name="first_name" class="form-control" required>
                         </div>
                         <div class="orm-group">
-                            <label for=""><strong>Last name</strong></label>
-                            <input type="text" name="last_name" class="form-control" required>
+                            <label for=""><strong>Last name</strong><small>(optional)</small></label>
+                            <input type="text" name="last_name" class="form-control">
                         </div>
                     </div>
 
