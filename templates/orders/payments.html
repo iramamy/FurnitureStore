@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <h3 class="text-center mt-4"> Review your product and proceed to payment</h3>
+    <div class="row my-4">
+        <div class="col-lg-8">
+
+            <div class="card mb-1">
+                <div class="card-body">
+                    <h5 class="card-title">Billing Address</h5>
+                    <p class="card-text">
+                    {{order.full_name}} <br>
+                    {{order.full_address}} <br>
+                    {{order.email}} <br>
+                    {{order.state}} {{order.city}} <br>
+                    {{order.order_note}} <br>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card mb-1">
+                <div class="card-body">
+                    <h5 class="card-title">Payment</h5>
+                    <p class="card-text">Paypal</p>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-border-less table-shopping-cart">
+                    <h5>Review products</h5>
+                    <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_item %}
+                        <tr>
+                            <td>
+                                <a href="{{ item.product.get_url }}"><img src="{{ item.product.images.url }}" alt="Image" class="img-sm"></a>
+                            </td>
+                            <td class="product-name">
+                                <p class="text-black"><a href="{{ item.product.get_url }}" style="text-decoration: none;">{{item.product.product_name}}</a></p>
+                            </td>
+                            <td>
+                                <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+                                    {{ item.quantity }}
+                                </div>
+                            </td>
+                            <td>
+                                ${{ item.subtotal }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card-body text-dark">
+                <div class="row d-flex align-items-center">
+                    <div class="col d-flex justify-content-start">
+                        <h6>Subtotal price:</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <p>${{total}}</p>
+                    </div>
+                </div>
+
+                <div class="row d-flex align-items-center">
+                    <div class="col d-flex justify-content-start">
+                        <h6>Tax:</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <p>${{tax}}</p>
+                    </div>
+                </div>
+
+                <div class="row d-flex align-items-center">
+                    <div class="col d-flex justify-content-start">
+                        <h6>Grand total:</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <p>${{grand_total}}</p>
+                    </div>
+                </div>
+            </div> <!-- card-body.// -->
+
+                <div class=" d-grid gap-2">
+                    <button class="btn btn-outline-black btn-sm btn-block" type="submit">Make payment</button>
+                </div>
+            
+            </div>
+        </div>
+
+</div>
+
+{% endblock %}
