@@ -4,33 +4,36 @@
 {% block content %}
 
 <div class="container">
-    <h3 class="text-center mt-4"> Review your product and proceed to payment</h3>
+    <h3 class="text-center mt-4 text-black"> Review your product and proceed to payment</h3>
     <div class="row my-4">
         <div class="col-lg-8">
 
             <div class="card mb-1">
                 <div class="card-body">
-                    <h5 class="card-title">Billing Address</h5>
+                    <h5 class="card-title text-black">Billing Address</h5>
                     <p class="card-text">
                     {{order.full_name}} <br>
                     {{order.full_address}} <br>
                     {{order.email}} <br>
-                    {{order.state}} {{order.city}} <br>
+                    {{order.state}} {{order.city}} 
+                    {% if order.order_note %}
+                    <br>
                     {{order.order_note}} <br>
+                    {% endif %}
                     </p>
                 </div>
             </div>
 
             <div class="card mb-1">
                 <div class="card-body">
-                    <h5 class="card-title">Payment</h5>
+                    <h5 class="card-title text-black">Payment</h5>
                     <p class="card-text">Paypal</p>
                 </div>
             </div>
 
             <div class="card-body">
                 <table class="table table-border-less table-shopping-cart">
-                    <h5>Review products</h5>
+                    <h5 class="text-black">Review products</h5>
                     <thead>
                         <tr>
                             <th scope="col">Image</th>
@@ -94,15 +97,83 @@
                         <p>${{grand_total}}</p>
                     </div>
                 </div>
+                <hr>
             </div> <!-- card-body.// -->
+            
 
                 <div class=" d-grid gap-2">
-                    <button class="btn btn-outline-black btn-sm btn-block" type="submit">Make payment</button>
+                    <div id="paypal-button-container"></div>
                 </div>
             
             </div>
         </div>
 
 </div>
+
+<script>
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+
+    var amount = '{{ grand_total }}';
+    var url = '{% url "payments" %}';
+    var csrftoken = getCookie('csrftoken');
+    var orderID = '{{order.order_number}}';
+    var payment_method = 'PayPal';
+    paypal.Buttons({
+
+        style: {
+            shape: 'pill',
+            label: 'pay',
+            height: 40,
+        },
+
+        createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: amount,
+                        }
+                    }]
+                });
+        },
+
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                console.log(details);
+                sendData();
+                function sendData() {
+                    fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json",
+                            "X-CSRFtoken": csrftoken,
+                        },
+                        body: JSON.stringify({
+                            orderID: orderID,
+                            transID: details.id,
+                            payment_method: payment_method,
+                            status: details.status,
+                        }),
+                    })
+                    // .then(response => response.json())
+                    // .then(data => console.log(data));
+                }
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
 
 {% endblock %}

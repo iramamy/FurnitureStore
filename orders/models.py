@@ -24,8 +24,8 @@ class Order(models.Model):
         ('Cancelled', 'Cancelled'),
     )
 
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
+    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank=True, null=True)
     order_number = models.CharField(max_length=20)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=20)
@@ -53,7 +53,7 @@ class Order(models.Model):
     def full_address(self):
         return f"{self.address_line_1} {self.address_line_2}"
 
-class OrdreProduct(models.Model):
+class OrderProduct(models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
@@ -61,6 +61,7 @@ class OrdreProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     product_price = models.FloatField()
+    total_amount = models.FloatField(null=True)
     ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

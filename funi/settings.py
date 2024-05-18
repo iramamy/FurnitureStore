@@ -23,6 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-$4!-)07qta2mi+y6=7q!_al2w@4*7&tqy0wlgk0i4ck=&b=+b-"
 
+# Paypal
+SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

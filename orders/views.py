@@ -1,13 +1,63 @@
 from django.shortcuts import render, redirect
 import datetime
 
+import json
+
 from cart.models import CartItem
-from .models import Order
+from .models import Order, Payment, OrderProduct
 from .forms import OrderForm
+
+
 
 # Create your views here.
 
 def payments(request):
+
+    body = json.loads(request.body)
+    order = Order.objects.get(
+        user=request.user,
+        is_ordered=False,
+        order_number=body['orderID']
+    )
+
+    # Store transaction details in payment
+    payment = Payment(
+        user=request.user,
+        payment_id=body['transID'],
+        payment_method=body['payment_method'],
+        status=body['status'],
+        amount_paid=order.order_total
+    )
+
+    payment.save()
+
+    order.payment = payment
+    order.is_ordered = True
+
+    order.save()
+
+    # Move cart item to OrderProduct db
+    cart_items = CartItem.objects.filter(user=request.user)
+
+    for item in cart_items:
+        orderproduct = OrderProduct()
+        orderproduct.order_id = order.id
+        orderproduct.user_id = request.user.id
+        orderproduct.payment = payment
+        orderproduct.product_id = item.product_id
+        orderproduct.quantity = item.quantity
+        orderproduct.product_price = item.product.price
+        orderproduct.total_price = item.quantity * item.product.price
+        orderproduct.ordered = True
+
+        orderproduct.save()
+
+    # Decrease stock number
+
+    # Clear cart
+
+    # Email confirmation to user
+
     return render(request, 'orders/payments.html')
 
 def place_order(request, total=0, quantity=0):
