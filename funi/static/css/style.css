@@ -248,6 +248,38 @@ a {
   }
 }
 
+/* Dashboard */
+.dashboard .card {
+  background: white !important;
+}
+
+.dashboard .links .card-header {
+  background: #3b5d50 !important;
+  color: white;
+}
+
+/* .dashboard .list-group-item {
+  background-color: white !important;
+} */
+
+.dashboard a {
+  text-decoration: none;
+  border: none;
+}
+
+.dashboard .links li:hover {
+  background: #3b5d50 !important;
+  border: none !important;
+
+}
+
+.dashboard .links a:hover {
+  color: white !important;
+  transition: all 0s ease-in-out;
+}
+
+
+/* Dashboard */
 
 .custom-table {
   border: 1px solid #2b3958;
@@ -268,6 +300,7 @@ a {
 .custom-actions-btns .btn {
   margin: .3rem 0 .3rem .3rem;
 }
+
 
 
 /* Footer social icon */

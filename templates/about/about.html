@@ -115,14 +115,89 @@
             <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
                 <img src="{% static 'images/person_2.jpg' %}" class="img-fluid mb-5">
 
-                <h3 clas><a href="#"><span class="">Jeremy</span> Walker</a></h3>
+                <h3>
+                    <a href="#">
+                        <span class="">Jeremy</span> Walker
+                    </a>
+                </h3>
                 <span class="d-block position mb-4">CEO, Founder, Atty.</span>
-                <p>Separated they live in.
-                Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
-
-            </div> 
+                <p>Jeremy Walker is an accomplished CEO and founder with over 20 years of experience in the legal and business sectors.</p>
+                <p class="mb-0">
+                    <a class="more dark"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modal2"
+                        href="#"
+                    >Learn More <span class="icon-arrow_forward"></span>
+                    </a>
+                </p>
+            </div>
             <!-- End Column 2 -->
+
+            <!-- Modal 2 -->
+            <div id="modal2" class="modal fade">
+                <div class="modal-dialog modal-lg mt-5">
+                    <div class="modal-content p-5">
+                        <div class="row">
+                            <!-- First col -->
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="mb-4">
+                                        <div class="image-container">
+                                            <img src="{% static 'images/person_2.jpg' %}" alt="" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3>About</h3>
+                                        <p>Jeremy Walker began his career as a corporate lawyer before transitioning into entrepreneurship. His innovative thinking and leadership skills have led to the creation of multiple successful ventures in the tech and legal industries.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- // First col -->
+
+                            <!-- Second col -->
+                            <div class="col-md-6">
+                                <div>
+                                    <h3>Professional Achievements</h3>
+                                    <p>Jeremy has been recognized as a top innovator in his field, receiving numerous awards for his contributions to business and technology. His companies have been featured in leading industry publications for their groundbreaking work.</p>
+                                </div>
+
+                                <div>
+                                    <h3>Philanthropy</h3>
+                                    <p>Aside from his professional achievements, Jeremy is also dedicated to giving back to the community. He actively supports various charitable organizations and has established scholarships for underprivileged students.</p>
+                                </div>
+
+                                <div>
+                                    <h3>Contact</h3>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="#">
+                                            <i class="fab fa-facebook fa-3x"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fab fa-twitter fa-3x"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fab fa-instagram fa-3x"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fab fa-linkedin fa-3x"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <button 
+                                    href="#" 
+                                    class="btn btn-light mt-3"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                            <!-- // Second col -->
+                        </div>
+                        <!-- // row -->
+                    </div>
+                </div>
+            </div>
 
             <!-- Start Column 3 -->
             <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">

@@ -3,86 +3,113 @@
 
 {% block content %}
 
+
 <!-- ========================= SECTION CONTENT ========================= -->
-<section class="section-conten padding-y bg">
+<section class="dashboard">
+    <div class="container">
+        
+        <div class="row mt-4">
+            {% include 'includes/alerts.html' %}
 
-    <div class="container my-4">
-        {% include 'includes/alerts.html' %}
-        <div class="row mt-5">
-        <aside class="col-md-3 mb-4">
-            <!--   SIDEBAR   -->
-            <ul class="list-group">
-                <a class="list-group-item custom-active" href="#"> My order history </a>
-                <a class="list-group-item" href="#"> Transactions </a>
-                <a class="list-group-item" href="#"> Return and refunds </a>
-                <a class="list-group-item" href="#">Settings </a>
-                <a class="list-group-item" href="#"> My Selling Items </a>
-                <a class="list-group-item" href="#"> Received orders </a>
-            </ul>
-            <br>
-            <a class="btn btn-light btn-block" href="{% url 'signout' %}"> 
-                <i class="fa fa-power-off"></i> 
-                <span class="text">Sign out</span>
-            </a> 
-            <!--   SIDEBAR .//END   -->
-        </aside>
+            <h3 class="text-center fw-bold text-dark mb-3">Dashboard</h3>
 
-        <main class="col mb-5">
-            <article class="card">
-            <header class="card-header">
-                <strong class="d-inline-block mr-3">Order ID: 6123456789</strong>
-                <span>Order Date: 16 December 2018</span>
-            </header>
-            <div class="card-body">
-                <div class="row"> 
-                    <div class="col-md-8">
-                        <h6 class="text-muted">Delivery to</h6>
-                        <p>Michael Jackson <br>  
-                        Phone +1234567890 Email: myname@pixsellz.com <br>
-                        Location: Home number, Building name, Street 123,  Tashkent, UZB <br> 
-                        P.O. Box: 100123
-                         </p>
+            <div class="col-md-3 d-flex flex-column">
+                <div class="card links">
+                    <div class="card-header bg-primary">
+                      My order history
                     </div>
-                    <div class="col-md-4">
-                        <h6 class="text-muted">Payment</h6>
-                        <span class="text-success">
-                            <i class="fab fa-lg fa-cc-visa"></i>
-                            Visa  **** 4216  
-                        </span>
-                        <p>Subtotal: $356 <br>
-                         Shipping fee:  $56 <br> 
-                         <span class="b">Total:  $456 </span>
-                        </p>
-                    </div>
-                </div> <!-- row.// -->
-            </div> <!-- card-body .// -->
-            <div class="table-responsive">
-                <table class="table">
-                    <tr class="clo-8">
-                        <td>
-                            <img src="#" class="img-xs border">
-                        </td>
-                        <td> 
-                            <p class="title mb-0">Product name goes here </p>
-                            <var class="price text-muted">USD 145</var>
-                        </td>
-                        <td> Seller <br> Nike clothing </td>                            
-                    </tr>
-
-                </table>
-                <div class="text-center pb-3">
-                    <a href="#" class="btn btn-outline-primary mx-2">Track order</a> 
-                    <a href="{% url 'cart' %}" class="btn btn-outline-primary mx-2"> Details </a> </td>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item border-bottom poition-relative">
+                            <a href="#" class="stretched-link" role="button">Transactions</a>
+                        </li>
+                        <li class="list-group-item border-bottom position-relative">
+                            <a href="#" class="stretched-link">Return and refunds</a>
+                        </li>
+                        <li class="list-group-item border-bottom position-relative">
+                            <a href="#" class="stretched-link">Settings</a>
+                        </li>
+                        <li class="list-group-item border-bottom position-relative">
+                            <a href="#" class="stretched-link">My selling items</a>
+                        </li>
+                        <li class="list-group-item position-relative">
+                            <a href="#" class="stretched-link">
+                                Received orders
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            </div> <!-- table-responsive .end// -->
-            </article> <!-- order-group.// --> 
-        </main>
-    </div> <!-- row.// -->
-</div>
-    
-    
-    </section>
-    <!-- ========================= SECTION CONTENT END// ========================= -->
+                <div>
+                    <ul class="list-group my-4">
+                        <li class="list-group-item poition-relative text-center">
+                            <i class="fa fa-power-off"></i>
+                            <a href="{% url 'signout' %}" class="stretched-link">Log out</a>
+                        </li>
+                      </ul>
+                </div>   
+            </div>
+
+            <div class="col-md-9 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                      <span class="text-dark me-2"><b>Order ID: 6123456789</b></span> Order Date: 16 December 2018
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8 d-flex flex-column">
+                                <span>Deliverd to</span>
+                                <span>Michael Jackson </span>
+                                <span>Phone +1234567890 Email: myname@pixsellz.com </span>
+                                <span>Location: Home number, Building name, Street 123, Tashkent, UZB </span>
+                                <span>P.O. Box: 100123 </span>
+                            </div>
+                            <div class="col-md-4 d-flex flex-column">
+                                <span>Payment</span>
+                                <span>VISA</span>
+                                <span>Subtotal: $356 </span>
+                                <span>Shipping fee: $56 </span>
+                                <span>Total: $456</span>
+                            </div>
+                        </div>
+                      </li>
+                    </ul>
+                    
+                    <div class="text-center mt-3">
+                        <h5 class="fw-bold text-dark"> You products</h5>
+                    </div>
+                    <table class="table mb-0">
+                        <tbody>
+                            <tr>
+                            <th>Img</th>
+                            <td>Product name</td>
+                            <td>Quantity</td>
+                            <td>Total</td>
+                            <td>
+                                <a href="#" class="text-primary fw-bold">
+                                    Details
+                                </a>
+                            </td>
+                            </tr>
+                            <tr class="no-border">
+                                <th>Img</th>
+                                <td>Product name</td>
+                                <td>Quantity</td>
+                                <td>Total</td>
+                                <td>
+                                    <a href="#" class="text-primary fw-bold">
+                                        Details
+                                    </a>
+                                </td>
+                                </tr>
+                        </tbody>
+                      </table>
+                  </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ========================= SECTION CONTENT // ========================= -->
 
 
 {% endblock %}
