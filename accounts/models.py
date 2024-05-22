@@ -101,6 +101,9 @@ class Account(AbstractBaseUser):
 
         return str(self.email)
 
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     def has_perm(self, perm, obj=None):
         """
         Check if the user has a specific permission.

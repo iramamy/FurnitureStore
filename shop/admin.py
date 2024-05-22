@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product
+from .models import Product, ReviewRating
 
 class ProductAdmin(admin.ModelAdmin):
     list_display           = [
@@ -16,6 +16,21 @@ class ProductAdmin(admin.ModelAdmin):
 
     list_filter             = ('category', 'is_available')
 
-# Register your models here.
+
+class ReviewRatingAdmin(admin.ModelAdmin):
+    list_display = [
+        'subject',
+        'user',
+        'product',
+        'rating',
+        'updated_date'
+    ]
+
+    list_display_links = [
+        'subject',
+        'user',
+    ]
+
 admin.site.register(Product, ProductAdmin)
+admin.site.register(ReviewRating, ReviewRatingAdmin)
 
