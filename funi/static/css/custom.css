@@ -53,3 +53,21 @@ label:hover ~ input:checked ~ label {
     color: #ffb503;
     font-size: 1rem;
 }
+
+/* dashboard */
+.avatar {
+    max-width: 4rem;
+    max-height: 4rem;
+}
+
+.active {
+    background: #3b5d50 !important; 
+}
+
+.active a {
+    color: white !important;
+}
+
+.list-group-item.active {
+    border-color: #3b5d50 !important;
+}

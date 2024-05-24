@@ -9,7 +9,7 @@
 
   {% if request.GET.command == 'verify' %}
   <div class="container mx-auto alert alert-success text-center" style="max-width: 1024px; margin-top:100px;" role="alert">
-      Thank you for your registration. We have sent you a verification email [{{request.Get.email}}]
+    Thank you for your registration. We have sent you a verification email [{{ request.GET.email }}]
   
     <br><br>
     Already verified? <a href="{% url 'signin' %}">Sign in</a>

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="dashboard">
+    <div class="container">
+        
+        <div class="row mt-4">
+            {% include 'includes/alerts.html' %}
+
+            <h3 class="text-center fw-bold text-dark mb-3">My orders</h3>
+
+            <div class="col-md-3 d-flex flex-column">
+                
+                {% include 'includes/dashboard_sidebar.html' %}
+                <div>
+                    <ul class="list-group my-4">
+                        <li class="list-group-item poition-relative text-center">
+                            <i class="fa fa-power-off"></i>
+                            <a href="{% url 'signout' %}" class="stretched-link">Log out</a>
+                        </li>
+                      </ul>
+                </div>   
+            </div>
+
+            <div class="col-md-9 mb-3">
+                <div class="card">
+                    <div class="card-header text-center">
+                      <span class="text-dark "><b>Your order history</b>
+                    </div>
+                    
+                    <table class="table mb-0 table-hover">
+                        <tbody>
+                            <tr>
+                                <th>#Order</th>
+                                <td>Name</td>
+                                <td>Phone</td>
+                                <td>Total</td>
+                                <td>Date</td>
+                            </tr>
+                            {% for order in orders %}
+                            <tr class="no-border">
+                                <th class="position-relative">
+                                    <a href="" class="stretched-link">
+                                        #{{order.order_number}}
+                                    </a>
+                                </th>
+                                <td>{{ order.first_name }}</td>
+                                <td>{{ order.phone }}</td>
+                                <td>${{ order.order_total }}</td>
+                                <td>{{ order.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                  </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ========================= SECTION CONTENT // ========================= -->
+
+
+{% endblock %}

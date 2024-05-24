@@ -14,30 +14,8 @@
             <h3 class="text-center fw-bold text-dark mb-3">Dashboard</h3>
 
             <div class="col-md-3 d-flex flex-column">
-                <div class="card links">
-                    <div class="card-header bg-primary">
-                      My order history
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item border-bottom poition-relative">
-                            <a href="#" class="stretched-link" role="button">Transactions</a>
-                        </li>
-                        <li class="list-group-item border-bottom position-relative">
-                            <a href="#" class="stretched-link">Return and refunds</a>
-                        </li>
-                        <li class="list-group-item border-bottom position-relative">
-                            <a href="#" class="stretched-link">Settings</a>
-                        </li>
-                        <li class="list-group-item border-bottom position-relative">
-                            <a href="#" class="stretched-link">My selling items</a>
-                        </li>
-                        <li class="list-group-item position-relative">
-                            <a href="#" class="stretched-link">
-                                Received orders
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                
+                {% include 'includes/dashboard_sidebar.html' %}
                 <div>
                     <ul class="list-group my-4">
                         <li class="list-group-item poition-relative text-center">
@@ -51,58 +29,36 @@
             <div class="col-md-9 mb-3">
                 <div class="card">
                     <div class="card-header">
-                      <span class="text-dark me-2"><b>Order ID: 6123456789</b></span> Order Date: 16 December 2018
+                      <span class="text-dark me-2"><b>Logged in as: </b></span> {{user.full_name}}
                     </div>
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8 d-flex flex-column">
-                                <span>Deliverd to</span>
-                                <span>Michael Jackson </span>
-                                <span>Phone +1234567890 Email: myname@pixsellz.com </span>
-                                <span>Location: Home number, Building name, Street 123, Tashkent, UZB </span>
-                                <span>P.O. Box: 100123 </span>
+
+                            <div class="col-md-6 text-center p-3">
+                                <h5 class="card-title fw-bold">Total orders</h5>
+                                <h4>{{order_count}}</h4>
+                                <a 
+                                    href="{% url 'my_orders' %}"
+                                    class="btn btn-secondary"
+                                    >View orders</a>
                             </div>
-                            <div class="col-md-4 d-flex flex-column">
-                                <span>Payment</span>
-                                <span>VISA</span>
-                                <span>Subtotal: $356 </span>
-                                <span>Shipping fee: $56 </span>
-                                <span>Total: $456</span>
+
+                            <div class="col-md-6 text-center p-3">
+                                <a href="{% url 'edit_profile' %}">
+                                    <img 
+                                    src="{{ userprofile.profile_picture.url }}" 
+                                    alt="user profile"
+                                    class="rounded-circle img-fluid avatar"
+                                    >
+                                </a>
+                                <p class="mb-0">{{user.email}}</p>
+                                <p class="mb-0">{{user.phone_number}}</p>
                             </div>
                         </div>
                       </li>
                     </ul>
-                    
-                    <div class="text-center mt-3">
-                        <h5 class="fw-bold text-dark"> You products</h5>
-                    </div>
-                    <table class="table mb-0">
-                        <tbody>
-                            <tr>
-                            <th>Img</th>
-                            <td>Product name</td>
-                            <td>Quantity</td>
-                            <td>Total</td>
-                            <td>
-                                <a href="#" class="text-primary fw-bold">
-                                    Details
-                                </a>
-                            </td>
-                            </tr>
-                            <tr class="no-border">
-                                <th>Img</th>
-                                <td>Product name</td>
-                                <td>Quantity</td>
-                                <td>Total</td>
-                                <td>
-                                    <a href="#" class="text-primary fw-bold">
-                                        Details
-                                    </a>
-                                </td>
-                                </tr>
-                        </tbody>
-                      </table>
+
                   </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
@@ -11,8 +11,10 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 
-from .form import RegistrationForm
-from .models import Account
+from .form import RegistrationForm, UserForm, UserProfileForm
+from .models import Account, UserProfile
+
+from orders.models import Order
 
 
 # Create your views here.
@@ -39,6 +41,15 @@ def register(request):
             user.phone_number = phone_number
             user.save()
 
+            # Create user profile
+            user_profile = UserProfile()
+            user_profile.user_id = user.id
+            user_profile.first_name = first_name
+            user_profile.last_name = last_name
+            user_profile.phone_number = phone_number
+            user_profile.profile_picture = 'default/default.png'
+            user_profile.save()
+
             # User activation
             current_site = get_current_site(request)
             mail_subject = 'Please activate your account'
@@ -59,8 +70,6 @@ def register(request):
             )
 
             send_email.send()
-
-            # messages.success(request, "Registration successful!")
 
             return redirect('/accounts/signin/?command=verify&email='+email) # noqa
     else:
@@ -126,7 +135,23 @@ def signout(request):
 
 @login_required(login_url='signin')
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    orders = Order.objects.order_by('-created_at').filter(
+        user_id=request.user.id,
+        is_ordered=True
+    )
+
+    userprofile = get_object_or_404(
+        UserProfile,
+        user=request.user
+    )
+
+    order_count = orders.count()
+    context = {
+        'order_count': order_count,
+        "userprofile": userprofile
+    }
+
+    return render(request, 'accounts/dashboard.html', context)
 
 def forgotpassword(request):
 
@@ -203,3 +228,51 @@ def reset_password(request):
             return redirect("forgotpassword")
 
     return render(request, 'accounts/reset_password.html')
+
+def my_orders(request):
+    
+    orders = Order.objects.filter(
+        user=request.user,
+        is_ordered=True
+    ).order_by('-created_at')
+
+    context = {
+        'orders': orders
+    }
+
+    return render(request, 'accounts/my_orders.html', context)
+
+@login_required(login_url='signin')
+def edit_profile(request):
+
+    userprofile = get_object_or_404(
+        UserProfile,
+        user=request.user
+    )
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(
+            request.POST, 
+            request.FILES,
+            instance=userprofile
+            )
+
+        if user_form.is_valid and profile_form.is_valid:
+            user_form.save()
+            profile_form.save()
+
+            messages.success(request, "Your profile has been updated!")
+
+            return redirect(edit_profile)
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=userprofile)
+
+    context = {
+        "user_form": user_form,
+        "profile_form": profile_form,
+        "userprofile": userprofile
+    }
+
+    return render(request, 'accounts/edit_profile.html', context )

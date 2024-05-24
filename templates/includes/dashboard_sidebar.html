@@ -1,0 +1,21 @@
+{% load static %}
+
+<div class="card links">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item border-bottom poition-relative {% if '/accounts/' == request.path or '/dashboard/' in request.path %}active{% endif %}">
+            <a href="{% url 'dashboard' %}" class="stretched-link">Dashboard</a>
+        </li>
+
+        <li class="list-group-item border-bottom poition-relativ {% if '/my_orders/' in request.path %}active{% endif %}">
+            <a href="{% url 'my_orders' %}" class="stretched-link">My orders</a>
+        </li>
+
+        <li class="list-group-item border-bottom position-relative {% if '/edit_profile/' in request.path %}active{% endif %}">
+            <a href="{% url 'edit_profile' %}" class="stretched-link">Edit profile</a>
+        </li>
+
+        <li class="list-group-item border-bottom position-relative {% if '/changepassword/' in request.path %}active{% endif %}">
+            <a href="#" class="stretched-link">Change password</a>
+        </li>
+    </ul>
+</div>

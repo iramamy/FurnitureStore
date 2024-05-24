@@ -164,7 +164,7 @@
 
                                     {% if user.is_authenticated %}
                                         {% if order_product %}
-                                        <button class="btn btn-primary w-100 m-2" type="submit">Submit</button>
+                                        <button class="btn btn-primary w-100 my-2" type="submit">Submit</button>
                                         {% else %}
                                         <h5 class="mt-2">You must purchase to post a review. <a href="{% url 'shop' %}" class="btn btn-outline-primary">Shop now</a></h5>
                                         {% endif %}
@@ -176,7 +176,6 @@
                                      {% include 'includes/alerts.html' %}
                                 </div>
                             </form>
-
                             
                                 {% if review_count > 0 %}
                                 <header class="mt-2">
