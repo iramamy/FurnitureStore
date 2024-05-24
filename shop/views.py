@@ -9,6 +9,7 @@ from .models import Product, ReviewRating
 from .forms import ReviewForm
 
 from orders.models import OrderProduct
+from accounts.models import UserProfile
 
 
 # Create your views here.
@@ -50,7 +51,10 @@ def shop(request, category_slug=None):
 def product_detail(request, category_slug, product_slug):
     try:
         # Single product
-        single_product = Product.objects.get(category__slug=category_slug, slug=product_slug) # noqa
+        single_product = Product.objects.get(
+            category__slug=category_slug, 
+            slug=product_slug
+        )
         in_cart = CartItem.objects.filter(
             cart__cart_id=_cart_id(request),
             product=single_product
@@ -58,7 +62,6 @@ def product_detail(request, category_slug, product_slug):
 
     except Exception as e:
         raise e
-
 
     order_product = None
     if request.user.is_authenticated:
@@ -77,13 +80,30 @@ def product_detail(request, category_slug, product_slug):
         status=True
     )
 
+    reviews_per_user = []
+    for review in reviews:
+        try:
+            profile = UserProfile.objects.get(
+                user=review.user
+            )
+            reviews_per_user.append({
+                'review': review,
+                'profile': profile
+            })
+
+        except UserProfile.DoesNotExist:
+            reviews_per_user.append({
+                'review': review,
+                'profile': None
+            })
+    
     review_count = reviews.count()
 
     context = {
         "single_product": single_product,
         "in_cart": in_cart,
         "order_product": order_product,
-        "reviews": reviews,
+        "reviews": reviews_per_user,
         "review_count": review_count
     }
 

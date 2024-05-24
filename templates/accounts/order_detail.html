@@ -14,20 +14,13 @@
                                 Furni<span>.</span>
                             </h3>
 
-							<center><i class="fas fa-check-circle" style="font-size: 72px;margin-bottom: 20px;color: #3b5d50;"></i></center>
-							<h2 class="text-center">Payment Successful</h2>
-							<br>
-							<div class="text-center mb-5">
-								<a href="{% url 'shop' %}" class="btn btn-secondary">Shop more</a>
-							</div>
-    
     						<!-- Row start -->
     						<div class="row gutters">
     							<div class="col-md-6">
     								<div class="text-black">
     									<address >
-                                            {{order.full_name}} <br>
-											{{order.full_address}} <br>
+                                            {{order.full_name}}<br>
+											{{order.full_address}}<br>
 											{{order.city}}, {{order.state}}
     									</address>
     								</div>
@@ -35,10 +28,10 @@
     							<div class="col-md-6">
     								<div class="text-xl-end text-md-end">
     									<div class="text-black">
-    										<div><b>Invoice</b>: #{{order_number}}</div>
-    										<div><b>Transaction</b>: #{{transID}}</div>
+    										<div><b>Invoice</b>: #{{order.order_number}}</div>
+    										<div><b>Transaction</b>: #{{order.payment.payment_id}}</div>
     										<div>{{order.created_at}}</div>
-    										<div>Payment <b>{{payment.status}}</b></div>
+    										<div>Payment <b>{{order.payment.status}}</b></div>
     									</div>
     								</div>													
     							</div>
@@ -56,7 +49,7 @@
     									<table class="table custom-table m-0">
     										<thead>
     											<tr>
-    												<th>Items</th>
+    												<th>Item</th>
     												<th>Quantity</th>
     												<th>Price</th>
     												<th>Sub Total</th>
@@ -64,18 +57,17 @@
     										</thead>
     										<tbody>
 												
-												{% for prod in ordered_products %}
-												
+                                                {% for item in order_detail %}
     											<tr>
     												<td>
-    													<span class="h6">{{prod.product.product_name}}</span>
+    													<span class="h6">{{item.product.product_name}}</span>
     												</td>
-    												<td>{{prod.quantity}}</td>
-    												<td>${{prod.product_price}}</td>
-													<td>${{prod.total_amount}}</td>
+    												<td>{{item.quantity}}</td>
+    												<td>${{item.product_price}}</td>
+													<td>${{item.total_amount}}</td>
     											</tr>
-												
-												{% endfor %}
+                                                {% endfor %}
+                                                
 
     											<tr>
     												<td>&nbsp;</td>
@@ -90,7 +82,7 @@
     												<td>
     													<p>
     														${{subtotal}}<br>
-    														${{shipping_handling}}<br>
+    														${{shipping}}<br>
     														${{tax}}<br>
     													</p>
     													<h5 class="text-success"><strong>${{grand_total}}</strong></h5>
@@ -103,10 +95,6 @@
     						</div>
     						<!-- Row end -->
     
-    					</div>
-    
-    					<div class="invoice-footer">
-    						Thank you for trusting us.
     					</div>
     
     				</div>

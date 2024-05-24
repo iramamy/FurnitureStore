@@ -14,7 +14,7 @@ from django.core.mail import EmailMessage
 from .form import RegistrationForm, UserForm, UserProfileForm
 from .models import Account, UserProfile
 
-from orders.models import Order
+from orders.models import Order, OrderProduct
 
 
 # Create your views here.
@@ -238,8 +238,11 @@ def my_orders(request):
         is_ordered=True
     ).order_by('-created_at')
 
+    order_exist = orders.exists()
+
     context = {
-        'orders': orders
+        'orders': orders,
+        "order_exist": order_exist
     }
 
     return render(request, 'accounts/my_orders.html', context)
@@ -312,3 +315,35 @@ def changepassword(request):
             return redirect('changepassword')
         
     return render(request, 'accounts/changepassword.html')
+
+
+@login_required(login_url='signin')
+def order_detail(request, order_id):
+
+    order_detail = OrderProduct.objects.filter(
+        order__order_number=order_id
+    )
+
+    order = Order.objects.get(
+        order_number=order_id
+    )
+
+    subtotal = 0
+    shipping = 10.0
+    tax = order.tax
+
+    for i in order_detail:
+        subtotal += i.product_price * i.quantity
+    
+    grand_total = subtotal + shipping + tax
+
+    context = {
+        "order_detail": order_detail,
+        "order": order,
+        "subtotal": subtotal,
+        "grand_total": grand_total,
+        'tax': tax,
+        "shipping": shipping
+    }
+
+    return render(request, 'accounts/order_detail.html', context)

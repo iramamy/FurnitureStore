@@ -13,8 +13,23 @@ def about(request):
         is_active=True
     )
 
+    testimonial_per_user = []
+
+    for testimonial in testimonials:
+        try:
+            profile = UserProfile.objects.get(user=testimonial.user)
+            testimonial_per_user.append({
+                'testimonial': testimonial,
+                'profile':  profile
+            })
+        except UserProfile.DoesNotExist:
+            testimonial_per_user.append({
+                'testimonial': testimonial,
+                'profile': profile
+            })
+
     context = {
-        'testimonials': testimonials,
+        'testimonials': testimonial_per_user,
     }
 
     return render(request, 'about/about.html', context)

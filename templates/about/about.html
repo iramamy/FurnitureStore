@@ -242,27 +242,27 @@
 
                     <div class="testimonial-slider">
 
-                        {% for testimonial in testimonials %}
+                        {% for i in testimonials %}
                         
                         
                         <div class="item">
-                            <h3 class="text-dark mb-0">{{testimonial.title}}</h3>
+                            <h3 class="text-dark">{{i.testimonial.title}}</h3>
                             <div class="row justify-content-center">
                                 <div class="col-lg-8 mx-auto">
 
                                     <div class="testimonial-block text-center">
                                         <blockquote class="mb-5">
                                             <p>&ldquo;
-                                                {{ testimonial.content }}
+                                                {{ i.testimonial.content }}
                                             &rdquo;</p>
                                         </blockquote>
 
                                         <div class="author-info">
                                             <div class="author-pic">
-                                                <img src="{% static 'images/person-1.png' %}" alt="Maria Jones" class="img-fluid">
+                                                <img src="{{ i.profile.profile_picture.url }}" alt="Maria Jones" class="img-fluid">
                                             </div>
-                                            <h3 class="font-weight-bold">{{testimonial.user.first_name}}</h3>
-                                            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+                                            <h3 class="font-weight-bold">{{i.testimonial.user.first_name}}</h3>
+                                            <span class="position d-block mb-3">{{i.testimonial.created_at}}</span>
                                         </div>
                                     </div>
 

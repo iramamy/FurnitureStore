@@ -71,3 +71,12 @@ label:hover ~ input:checked ~ label {
 .list-group-item.active {
     border-color: #3b5d50 !important;
 }
+
+.contact-icon {
+    background: #3b5d50 !important;
+}
+
+.contact-icon i {
+    color: white;
+    font-size: 18px;
+}

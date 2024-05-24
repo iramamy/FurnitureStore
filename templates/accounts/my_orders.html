@@ -32,6 +32,23 @@
                       <span class="text-dark "><b>Your order history</b>
                     </div>
                     
+                    {% if not order_exist %}
+
+                    <div class="card-body">
+                        <div class="row d-flex flex-column text-center">
+                            <p>You have not purchased any prodyct yet</p>
+                            <span>
+                                <a 
+                                href="{% url 'shop' %}"
+                                class="btn btn-secondary w-25"
+                                >
+                            Shop now
+                            </a>
+                            </span>
+                        </div>
+                    </div>
+
+                    {% else %}
                     <table class="table mb-0 table-hover">
                         <tbody>
                             <tr>
@@ -44,7 +61,7 @@
                             {% for order in orders %}
                             <tr class="no-border">
                                 <th class="position-relative">
-                                    <a href="" class="stretched-link">
+                                    <a href="{% url 'order_detail' order.order_number %}" class="stretched-link">
                                         #{{order.order_number}}
                                     </a>
                                 </th>
@@ -55,8 +72,9 @@
                             </tr>
                             {% endfor %}
                         </tbody>
-                      </table>
-                  </div>
+                    </table>
+                    {% endif %}
+                </div>
             </div>
         </div>
 
