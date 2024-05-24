@@ -231,12 +231,6 @@
 <!-- Start Testimonial Slider -->
 <div class="testimonial-section">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-7 mx-auto text-center">
-                <h2 class="section-title">Testimonials</h2>
-            </div>
-        </div>
-
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <div class="testimonial-slider-wrap text-center">
@@ -247,25 +241,27 @@
                     </div>
 
                     <div class="testimonial-slider">
+
+                        {% for testimonial in testimonials %}
+                        
                         
                         <div class="item">
+                            <h3 class="text-dark mb-0">{{testimonial.title}}</h3>
                             <div class="row justify-content-center">
                                 <div class="col-lg-8 mx-auto">
 
                                     <div class="testimonial-block text-center">
                                         <blockquote class="mb-5">
-                                            <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. 
-                                                Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. 
-                                                Aliquam vulputate velit imperdiet dolor tempor tristique. 
-                                                Pellentesque habitant morbi tristique senectus et netus et malesuada 
-                                                fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
+                                            <p>&ldquo;
+                                                {{ testimonial.content }}
+                                            &rdquo;</p>
                                         </blockquote>
 
                                         <div class="author-info">
                                             <div class="author-pic">
                                                 <img src="{% static 'images/person-1.png' %}" alt="Maria Jones" class="img-fluid">
                                             </div>
-                                            <h3 class="font-weight-bold">Maria Jones</h3>
+                                            <h3 class="font-weight-bold">{{testimonial.user.first_name}}</h3>
                                             <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
                                         </div>
                                     </div>
@@ -273,57 +269,11 @@
                                 </div>
                             </div>
                         </div> 
+
+                        {% endfor %}
                         <!-- END item -->
 
-                        <div class="item">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8 mx-auto">
-
-                                    <div class="testimonial-block text-center">
-                                        <blockquote class="mb-5">
-                                            <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
-                                        </blockquote>
-
-                                        <div class="author-info">
-                                            <div class="author-pic">
-                                                <img src="{% static 'images/person-1.jpg' %}" alt="Maria Jones" class="img-fluid">
-                                            </div>
-                                            <h3 class="font-weight-bold">Maria Jones</h3>
-                                            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div> 
-                        <!-- END item -->
-
-                        <div class="item">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8 mx-auto">
-
-                                    <div class="testimonial-block text-center">
-                                        <blockquote class="mb-5">
-                                            <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. 
-                                                Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. 
-                                                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                                                Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
-                                        </blockquote>
-
-                                        <div class="author-info">
-                                            <div class="author-pic">
-                                                <img src="{% static 'images/person-1.png' %}" alt="Maria Jones" class="img-fluid">
-                                            </div>
-                                            <h3 class="font-weight-bold">Maria Jones</h3>
-                                            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div> 
-                        <!-- END item -->
-
+                        
                     </div>
 
                 </div>
@@ -332,6 +282,45 @@
     </div>
 </div>
 <!-- End Testimonial Slider -->
+
+<section class="testimonials-comment">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-md-8 offset-md-2">
+                {% include 'includes/alerts.html' %}
+                <form action="{% url 'testimonial' %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="d-flex flex-column gap-2">
+                        <div class="text-center">
+                            <h2 class="text-dark">Leave comments</h2>
+                        </div>
+                        
+                        <input name="title" type="text" class="form-control" placeholder="Title">
+                        <textarea name="content" rows="4" class="form-control" placeholder="Your comment..."></textarea>
+                        {% if user.is_authenticated %}
+                            <button class="btn btn-primary" type="submit">
+                                Comment
+                            </button>
+                        {% else %}
+                            <div class="d-flex align-items-center justify-content-center gap-1 my-3">
+                                <p class="mb-0">
+                                    Please login to post a comment. 
+                                    <span>
+                                        <a href="{% url 'signin' %}">
+                                            <h6 class="mb-0"> Sign in</h6>
+                                        </a>
+                                    </span>
+                                </p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 {% endblock %}

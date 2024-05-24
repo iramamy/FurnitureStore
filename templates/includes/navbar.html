@@ -11,11 +11,11 @@
 
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                <li><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
-                <li><a class="nav-link" href="{% url 'about' %}">About us</a></li>
-                <li><a class="nav-link" href="{% url 'service' %}">Services</a></li>
-                <li><a class="nav-link" href="{% url 'contact' %}">Contact us</a></li>
+                <li class="{% if request.path == '/' %}active{% endif %}"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="{% if '/shop/' in request.path %}active{% endif %}"><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
+                <li class="{% if '/about/' in request.path %}active{% endif %}"><a class="nav-link" href="{% url 'about' %}">About us</a></li>
+                <li class="{% if '/service/' in request.path %}active{% endif %}"><a class="nav-link" href="{% url 'service' %}">Services</a></li>
+                <li class="{% if '/contact/' in request.path %}active{% endif %}"><a class="nav-link" href="{% url 'contact' %}">Contact us</a></li>
             </ul>
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                 <li><a class="nav-link" href="{% url 'dashboard' %}"><img src="{% static 'images/user.svg' %}"></a></li>

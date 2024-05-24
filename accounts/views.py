@@ -229,6 +229,8 @@ def reset_password(request):
 
     return render(request, 'accounts/reset_password.html')
 
+
+@login_required(login_url='signin')
 def my_orders(request):
     
     orders = Order.objects.filter(
@@ -276,3 +278,37 @@ def edit_profile(request):
     }
 
     return render(request, 'accounts/edit_profile.html', context )
+
+
+@login_required(login_url='signin')
+def changepassword(request):
+
+    if request.method == 'POST':
+        current_password = request.POST['current_password']
+        new_password = request.POST['new_password']
+        confirm_password = request.POST['confirm_password']
+
+        user = Account.objects.get(
+            username__exact=request.user.username
+            )
+
+        if new_password == confirm_password:
+            success = user.check_password(current_password)
+
+            if success:
+                user.set_password(new_password)
+                user.save()
+
+                messages.success(request, "Password updated successfuly!")
+
+                return redirect("changepassword")
+
+            else:
+                messages.error(request, "Please enter valid credential!")
+                return redirect("changepassword")
+        
+        else:
+            messages.error(request, "Password does not match!")
+            return redirect('changepassword')
+        
+    return render(request, 'accounts/changepassword.html')
