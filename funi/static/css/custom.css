@@ -80,3 +80,65 @@ label:hover ~ input:checked ~ label {
     color: white;
     font-size: 18px;
 }
+
+textarea {
+    resize: none;
+}
+
+.botbox {
+    z-index: 100;
+    max-width: 400px;
+    max-height: 90%;
+}
+
+.message-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 300px;
+  }
+  
+
+.message-container .sender {
+    background-color: #3b5d50;
+    color: #fff;
+    max-width: 80%;
+}
+
+.message-container .receiver {
+    background-color: #dbdbdb;
+    color: black;
+    max-width: 80%;
+}
+
+#chat {
+    display: none; 
+}
+
+
+@keyframes horizontal-shaking {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(5px);
+    }
+    50% {
+      transform: translateX(-5px);
+    }
+    75% {
+      transform: translateX(5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}
+
+.chat-icon a i{
+    background-color: #3b5d50;
+    padding: 10px 15px;
+    border-radius: 50%;
+}
+
+.chat-toggle {
+    animation: horizontal-shaking 0.5s ease-in-out infinite;
+}

@@ -1,39 +1,170 @@
 {% load static %}
 
-<!doctype >
+<!DOCTYPE >
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="Untree.co">
-  <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}" />
 
-  <meta name="description" content="" />
-  <meta name="keywords" content="bootstrap, bootstrap4" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
 
-		<!-- Bootstrap CSS -->
-		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link href="{% static 'css/tiny-slider.css' %}" rel="stylesheet">
-		<link href="{% static 'css/style.css' %}" rel="stylesheet">
-		<link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link href="{% static 'css/tiny-slider.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
 
     <!-- PayPal JavaScript SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=ASKgF8H_ZvHYvNlmJ4vuNNP5Vuh0aGBKvxUxnV09ZzOFVh9iS_VfZfZ38zT6I16BTJFZG0OhxXYAd_NO&currency=USD"></script>
-		<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
-        
-	</head>
+    <script src="https://www.paypal.com/sdk/js?client-id=ASKgF8H_ZvHYvNlmJ4vuNNP5Vuh0aGBKvxUxnV09ZzOFVh9iS_VfZfZ38zT6I16BTJFZG0OhxXYAd_NO&currency=USD"></script>
+    <title>
+      Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites
+      by Untree.co
+    </title>
+  </head>
 
-	<body>
+  <body>
+    <!-- navbar -->
+    {% include 'includes/navbar.html' %} {% block content %}
+    <!-- contenct -->
 
-        <!-- navbar -->
-        {% include 'includes/navbar.html' %}
+    {% endblock %}
 
-        {% block content %}
-        <!-- contenct -->
+    
+    {% if request.user.is_authenticated %}
 
-        {% endblock %}
+    <div class="card rounded-3 position-fixed bottom-0 end-0 me-4 mb-2 botbox" id="chat">
+      <div class="card-body">
+        <div class="card-title d-flex">
+          <div class="">
+            <i class="fa-solid fa-robot fa-3x me-3 text-primary"></i>
+          </div>
+          <div>
+            <p>Welcome to <b>FurniAssistant</b></p>
+            <span>
+              <small class="text-muted"
+                >We are here to help to find you favorite product
+              </small></span
+            >
+          </div>
+          <div>
+            <a href="#" style="text-decoration: none;" id="closeChat">
+              <span class="fs-3">&times;</span>
+            </a>
+          </div>
+        </div>
 
-        <!-- footer -->
-        {% include 'includes/footer.html' %}
+        <hr />
+
+        <div class=" d-flex flex-column ">
+
+          <div class="row message-container gap-1 mb-3">
+            <div class="col-12 text-start d-flex gap-1 mt-2">
+              <div>
+                <i class="fa-solid fa-robot fa-1x text-primary"></i>
+              </div>
+  
+              <div class="receiver card p-2 ms-end border-0">
+                <span class="mb-0 lh-1">
+                  Hello <b>{{user.first_name}}</b>, how can I help you to day?
+                </span>
+              </div>
+            </div>
+  
+            <div class="col-12 d-flex justify-content-end">
+              <div class="sender card p-2 border-0">
+                <span class="mb-0">
+                  It kicks off at 8 PM. Can't wait to see you there!
+                </span>
+              </div>
+            </div>
+  
+            <div class="col-12 text-start d-flex gap-1">
+              <div>
+                <i class="fa-solid fa-robot fa-1x text-primary"></i>
+              </div>
+              
+              <div class="receiver card p-2 ms-end border-0">
+                <span class="mb-0">
+                  Absolutely! 
+                </span>
+              </div>
+            </div>
+  
+            <div class="col-12 text-start d-flex gap-1">
+              <div>
+                <i class="fa-solid fa-robot fa-1x text-primary"></i>
+              </div>
+              
+              <div class="receiver card p-2 ms-end border-0">
+                <span class="mb-0">
+                  Absolutely! I wouldn't miss it for the world. What time does it
+                  start?
+                </span>
+              </div>
+            </div>
+
+
+            <div class="col-12 d-flex justify-content-end  mb-3">
+              <div class="sender card p-2 border-0">
+                <span class="mb-0">
+                  It kicks off at 8 PM. Can't wait to see you there!
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <hr class="mt-0"/>
+          <div class="">
+            <form action="#">
+              <div class="input-group">
+                <input type="text" class="form-control" />
+
+                <button
+                  href="#"
+                  class="input-group-text bg-white"
+                  type="submit"
+                >
+                  <i class="fa fa-paper-plane text-muted"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="chat-icon">
+      <div class="container">
+        <div class="position-fixed bottom-0 end-0 me-4 mb-3">
+            <a href="#" id="toggleChat">
+              <i class="fas fa-comment fa-2x text-white shake chat-toggle"></i>
+            </a>
+        </div>
+      </div>
+    </section>
+      
+    {% endif %}
+
+    <!-- <div class="shake">Shake me</div>
+<img class="shake" src="https://www.w3.org/2008/site/images/logo-w3c-screen-lg" /> -->
+      
+
+    <!-- footer -->
+    {% include 'includes/footer.html' %}
+  </body>
+</html>

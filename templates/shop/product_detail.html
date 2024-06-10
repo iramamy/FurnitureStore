@@ -113,137 +113,170 @@
         <!-- Reviews -->
         <!-- <div class="card mt-3"> -->
             <div class="container">
-                <div class="col-lg-8 pl-6">
-                    <article class="">
-                        <div class="icontext w-100">
-
-                            <form action="{% url 'submitreview' single_product.id %}" method="POST">
-                                {%csrf_token%}
-                                <h2 class="mt-4">Write your review</h2>
+                <div class="row">
+                    <div class="col-lg-8 pl-6">
+                        <article class="">
+                            <div class="icontext w-100">
+    
+                                <form action="{% url 'submitreview' single_product.id %}" method="POST">
+                                    {%csrf_token%}
+                                    <h2 class="mt-4">Write your review</h2>
+                                    
+                                    <div>
+                                        <label class="text-dark fw-bold">How do you write this product?</label>
+                                        <br>
+                                        <div class="rate">
+                                            <input type="radio" name="rating" id="rating10" value="5" required>
+                                            <label for="rating10" title="5"></label>
+    
+                                            <input type="radio" name="rating" id="rating9" value="4.5" required>
+                                            <label for="rating9" title="4.5" class="half"></label>
+    
+                                            <input type="radio" name="rating" id="rating8" value="4" required>
+                                            <label for="rating8" title="4"></label>
+    
+                                            <input type="radio" name="rating" id="rating7" value="3.5" required>
+                                            <label for="rating7" title="3.5" class="half"></label>
+    
+                                            <input type="radio" name="rating" id="rating6" value="3" required>
+                                            <label for="rating6" title="3"></label>
+    
+                                            <input type="radio" name="rating" id="rating5" value="2.5" required>
+                                            <label for="rating5" title="2.5" class="half"></label>
+    
+                                            <input type="radio" name="rating" id="rating4" value="2" required>
+                                            <label for="rating4" title="2"></label>
+    
+                                            <input type="radio" name="rating" id="rating3" value="1.5" required>
+                                            <label for="rating3" title="1.5" class="half"></label>
+    
+                                            <input type="radio" name="rating" id="rating2" value="1" required>
+                                            <label for="rating2" title="1"></label>
+    
+                                            <input type="radio" name="rating" id="rating1" value="0.5" required>
+                                            <label for="rating1" title="0.5" class="half"></label>
+                                        </div>
+                                        <br>
+                                        Review title:
+                                        <input type="text" name="subject" class="form-control">
+                                        Review
+                                        <textarea name="review" id="" rows="4" class="form-control"></textarea>
+    
+                                        {% if user.is_authenticated %}
+                                            {% if order_product %}
+                                            <button class="btn btn-primary w-100 my-2">Submit</button>
+                                            {% else %}
+                                            <h5 class="mt-2">You must purchase to post a review. <a href="{% url 'shop' %}" class="btn btn-outline-primary">Shop now</a></h5>
+                                            {% endif %}
+                                        {%else%}
+                                        <h5 class="mt-2">Please sign in order to post a review. <a href="{% url 'signin' %}">Sign In</a></h5>
+                                        {% endif %}
+    
+                                        <!-- Success message -->
+                                         {% include 'includes/alerts.html' %}
+                                    </div>
+                                </form>
                                 
-                                <div>
-                                    <label class="text-dark fw-bold">How do you write this product?</label>
-                                    <br>
-                                    <div class="rate">
-                                        <input type="radio" name="rating" id="rating10" value="5" required>
-                                        <label for="rating10" title="5"></label>
-
-                                        <input type="radio" name="rating" id="rating9" value="4.5" required>
-                                        <label for="rating9" title="4.5" class="half"></label>
-
-                                        <input type="radio" name="rating" id="rating8" value="4" required>
-                                        <label for="rating8" title="4"></label>
-
-                                        <input type="radio" name="rating" id="rating7" value="3.5" required>
-                                        <label for="rating7" title="3.5" class="half"></label>
-
-                                        <input type="radio" name="rating" id="rating6" value="3" required>
-                                        <label for="rating6" title="3"></label>
-
-                                        <input type="radio" name="rating" id="rating5" value="2.5" required>
-                                        <label for="rating5" title="2.5" class="half"></label>
-
-                                        <input type="radio" name="rating" id="rating4" value="2" required>
-                                        <label for="rating4" title="2"></label>
-
-                                        <input type="radio" name="rating" id="rating3" value="1.5" required>
-                                        <label for="rating3" title="1.5" class="half"></label>
-
-                                        <input type="radio" name="rating" id="rating2" value="1" required>
-                                        <label for="rating2" title="1"></label>
-
-                                        <input type="radio" name="rating" id="rating1" value="0.5" required>
-                                        <label for="rating1" title="0.5" class="half"></label>
-                                    </div>
-                                    <br>
-                                    Review title:
-                                    <input type="text" name="subject" class="form-control">
-                                    Review
-                                    <textarea name="review" id="" rows="4" class="form-control"></textarea>
-
-                                    {% if user.is_authenticated %}
-                                        {% if order_product %}
-                                        <button class="btn btn-primary w-100 my-2">Submit</button>
-                                        {% else %}
-                                        <h5 class="mt-2">You must purchase to post a review. <a href="{% url 'shop' %}" class="btn btn-outline-primary">Shop now</a></h5>
-                                        {% endif %}
-                                    {%else%}
-                                    <h5 class="mt-2">Please sign in order to post a review. <a href="{% url 'signin' %}">Sign In</a></h5>
-                                    {% endif %}
-
-                                    <!-- Success message -->
-                                     {% include 'includes/alerts.html' %}
-                                </div>
-                            </form>
-                            
-                                {% if review_count > 0 %}
-                                <header class="mt-2">
-                                    <h3 class="mb-0"> Customer Reviews </h3> 
-                                    <div class="d-flex gap-3">
-                                        <div class="rating-star mb-3">
-                                            <i class="fa fa-star{% if single_product.average_review == 0.5 %}-half-o{% elif single_product.average_review < 1%}-o {%endif%}"></i>
-                                            <i class="fa fa-star{% if single_product.average_review == 1.5 %}-half-o{% elif single_product.average_review < 2%}-o {%endif%}"></i>
-                                            <i class="fa fa-star{% if single_product.average_review == 2.5 %}-half-o{% elif single_product.average_review < 3%}-o {%endif%}"></i>
-                                            <i class="fa fa-star{% if single_product.average_review == 3.5 %}-half-o{% elif single_product.average_review < 4%}-o {%endif%}"></i>
-                                            <i class="fa fa-star{% if single_product.average_review == 4.5 %}-half-o{% elif single_product.average_review < 5%}-o {%endif%}"></i>
-                                        </div> 
-                                        {% if single_product.review_count > 1 %}
-                                            {{single_product.review_count}} reviews
-                                        {% else %}
-                                            {{single_product.review_count}} review
-                                        {% endif %}
-                                    </div>
-                                </header>
-
-                                {% else %}
-                                <header class="mt-2">
-                                    <h5 class="text-center"> Not review for this product yet. </h5>  
-                                </header>
-                                {% endif %}
-
-                                {% for i in reviews %}
-                                <div class="card rounded-4 p-4 mb-3">
-                                    <div class="d-flex flex-column">
+                                    {% if review_count > 0 %}
+                                    <header class="mt-2">
+                                        <h3 class="mb-0"> Customer Reviews </h3> 
                                         <div class="d-flex gap-3">
-                                            <div>
-                                                <img src="{{ i.profile.profile_picture.url }}" class="avatar icon rounded-circle" alt="profile-pic">
-                                            </div>
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <div class="d-flex flex-column justify-content-between">
-                                                    <h6 class="mb-0 text-dark">{{i.review.user.full_name}} </h6>
-                                                    <div class="rating-star">
-                                                        <i class="fa fa-star{% if i.rating == 0.5 %}-half-o{% elif i.review.rating < 1%}-o {%endif%}"></i>
-                                                        <i class="fa fa-star{% if i.review.rating == 1.5 %}-half-o{% elif i.review.rating < 2%}-o {%endif%}"></i>
-                                                        <i class="fa fa-star{% if i.review.rating == 2.5 %}-half-o{% elif i.review.rating < 3%}-o {%endif%}"></i>
-                                                        <i class="fa fa-star{% if i.review.rating == 3.5 %}-half-o{% elif i.review.rating < 4%}-o {%endif%}"></i>
-                                                        <i class="fa fa-star{% if i.review.rating == 4.5 %}-half-o{% elif i.review.rating < 5%}-o {%endif%}"></i>
+                                            <div class="rating-star mb-3">
+                                                <i class="fa fa-star{% if single_product.average_review == 0.5 %}-half-o{% elif single_product.average_review < 1%}-o {%endif%}"></i>
+                                                <i class="fa fa-star{% if single_product.average_review == 1.5 %}-half-o{% elif single_product.average_review < 2%}-o {%endif%}"></i>
+                                                <i class="fa fa-star{% if single_product.average_review == 2.5 %}-half-o{% elif single_product.average_review < 3%}-o {%endif%}"></i>
+                                                <i class="fa fa-star{% if single_product.average_review == 3.5 %}-half-o{% elif single_product.average_review < 4%}-o {%endif%}"></i>
+                                                <i class="fa fa-star{% if single_product.average_review == 4.5 %}-half-o{% elif single_product.average_review < 5%}-o {%endif%}"></i>
+                                            </div> 
+                                            {% if single_product.review_count > 1 %}
+                                                {{single_product.review_count}} reviews
+                                            {% else %}
+                                                {{single_product.review_count}} review
+                                            {% endif %}
+                                        </div>
+                                    </header>
+    
+                                    {% else %}
+                                    <header class="mt-2">
+                                        <h5 class="text-center"> Not review for this product yet. </h5>  
+                                    </header>
+                                    {% endif %}
+    
+                                    {% for i in reviews %}
+                                    <div class="card rounded-4 p-4 mb-3">
+                                        <div class="d-flex flex-column">
+                                            <div class="d-flex gap-3">
+                                                <div>
+                                                    <img src="{{ i.profile.profile_picture.url }}" class="avatar icon rounded-circle" alt="profile-pic">
+                                                </div>
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <div class="d-flex flex-column justify-content-between">
+                                                        <h6 class="mb-0 text-dark">{{i.review.user.full_name}} </h6>
+                                                        <div class="rating-star">
+                                                            <i class="fa fa-star{% if i.rating == 0.5 %}-half-o{% elif i.review.rating < 1%}-o {%endif%}"></i>
+                                                            <i class="fa fa-star{% if i.review.rating == 1.5 %}-half-o{% elif i.review.rating < 2%}-o {%endif%}"></i>
+                                                            <i class="fa fa-star{% if i.review.rating == 2.5 %}-half-o{% elif i.review.rating < 3%}-o {%endif%}"></i>
+                                                            <i class="fa fa-star{% if i.review.rating == 3.5 %}-half-o{% elif i.review.rating < 4%}-o {%endif%}"></i>
+                                                            <i class="fa fa-star{% if i.review.rating == 4.5 %}-half-o{% elif i.review.rating < 5%}-o {%endif%}"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pt-0">
+                                                        <span class="date text-muted">{{i.review.created_date}}</span>  
                                                     </div>
                                                 </div>
-                                                <div class="pt-0">
-                                                    <span class="date text-muted">{{i.review.created_date}}</span>  
-                                                </div>
                                             </div>
+                                            
                                         </div>
-                                        
+    
+                                        <div class="mt-3">
+                                            {% if i.review.subject %}
+                                                <p class="mb-0 text-dark fw-bold">{{i.review.subject}}</p>
+                                            {% endif %}
+    
+                                            {% if i.review.review %}
+                                                <p class="mb-0">
+                                                    {{i.review.review}}
+                                                </p>	
+                                            {% endif %}
+                                        </div>
                                     </div>
+                                    {% endfor %}
+                            </article>
+                    </div> <!-- col.// -->
+                    <div class="col-lg-4">
+                        <h2 class="text-center mb-3">Related product</h2>
 
-                                    <div class="mt-3">
-                                        {% if i.review.subject %}
-                                            <p class="mb-0 text-dark fw-bold">{{i.review.subject}}</p>
-                                        {% endif %}
+                        
+                        {% for product in products %}
 
-                                        {% if i.review.review %}
-                                            <p class="mb-0">
-                                                {{i.review.review}}
-                                            </p>	
-                                        {% endif %}
-                                    </div>
+                        <div class="card rounded-4 p-3">
+                            <a class="product-item" href="{{ product.get_url }}" style="text-decoration: none;">
+                                <img src="{{ product.images.url }}" class="img-fluid product-thumbnail" >
+                                <h3 class="text-center">{{ product.product_name }}</h3>
+                                <div class="text-center">
+                                    <span class="fw-bold">${{ product.price }}</span>
+                                    <!-- Rating -->
+                                    <div class="rating-star mb-3">
+                                        <i class="fa fa-star{% if product.average_review == 0.5 %}-half-o{% elif product.average_review < 1%}-o {%endif%}"></i>
+                                        <i class="fa fa-star{% if product.average_review == 1.5 %}-half-o{% elif product.average_review < 2%}-o {%endif%}"></i>
+                                        <i class="fa fa-star{% if product.average_review == 2.5 %}-half-o{% elif product.average_review < 3%}-o {%endif%}"></i>
+                                        <i class="fa fa-star{% if product.average_review == 3.5 %}-half-o{% elif product.average_review < 4%}-o {%endif%}"></i>
+                                        <i class="fa fa-star{% if product.average_review == 4.5 %}-half-o{% elif product.average_review < 5%}-o {%endif%}"></i>
+                                    </div> 
+                                    <!-- // Rating -->
                                 </div>
-                                {% endfor %}
+                                
+                                
+                                <span class="icon-cross">
+                                    <img src="{% static 'images/cross.svg' %}" class="img-fluid">
+                                </span>
+                            </a>
+                        </div> 
                             
+                        {% endfor %}
                             
-                    </article>
-                </div> <!-- col.// -->
+                    </div>
+                </div>
             </div> <!-- row.// -->
         <!-- </div> -->
     </div> <!-- card.// -->

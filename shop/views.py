@@ -55,6 +55,11 @@ def product_detail(request, category_slug, product_slug):
             category__slug=category_slug, 
             slug=product_slug
         )
+
+        products = Product.objects.filter(
+            category=single_product.category
+        ).exclude(id=single_product.id).order_by('?')[:1]
+
         in_cart = CartItem.objects.filter(
             cart__cart_id=_cart_id(request),
             product=single_product
@@ -104,7 +109,8 @@ def product_detail(request, category_slug, product_slug):
         "in_cart": in_cart,
         "order_product": order_product,
         "reviews": reviews_per_user,
-        "review_count": review_count
+        "review_count": review_count,
+        "products": products
     }
 
     return render(request, 'shop/product_detail.html', context)
