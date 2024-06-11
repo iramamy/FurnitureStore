@@ -42,27 +42,29 @@
     {% include 'includes/navbar.html' %} {% block content %}
     <!-- contenct -->
 
-    {% endblock %}
+    {% endblock %} {% if request.user.is_authenticated %}
 
-    
-    {% if request.user.is_authenticated %}
-
-    <div class="card rounded-3 position-fixed bottom-0 end-0 me-4 mb-2 botbox" id="chat">
+    <div
+      class="card rounded-3 position-fixed bottom-0 end-0 me-4 mb-2 botbox"
+      id="chat"
+    >
       <div class="card-body">
-        <div class="card-title d-flex">
-          <div class="">
-            <i class="fa-solid fa-robot fa-3x me-3 text-primary"></i>
+        <div class="card-title d-flex justify-content-between">
+          <div class="d-flex align-items-center">
+            <div class="">
+              <i class="fa-solid fa-robot fa-3x me-3 text-primary"></i>
+            </div>
+            <div>
+              <p>Welcome to <b>FurniAssistant</b></p>
+              <span>
+                <small class="text-muted"
+                  >We are here to help you!
+                </small></span
+              >
+            </div>
           </div>
           <div>
-            <p>Welcome to <b>FurniAssistant</b></p>
-            <span>
-              <small class="text-muted"
-                >We are here to help to find you favorite product
-              </small></span
-            >
-          </div>
-          <div>
-            <a href="#" style="text-decoration: none;" id="closeChat">
+            <a href="#" style="text-decoration: none" id="closeChat">
               <span class="fs-3">&times;</span>
             </a>
           </div>
@@ -70,21 +72,20 @@
 
         <hr />
 
-        <div class=" d-flex flex-column ">
-
+        <div class="d-flex flex-column">
           <div class="row message-container gap-1 mb-3">
             <div class="col-12 text-start d-flex gap-1 mt-2">
               <div>
                 <i class="fa-solid fa-robot fa-1x text-primary"></i>
               </div>
-  
+
               <div class="receiver card p-2 ms-end border-0">
                 <span class="mb-0 lh-1">
                   Hello <b>{{user.first_name}}</b>, how can I help you to day?
                 </span>
               </div>
             </div>
-  
+
             <div class="col-12 d-flex justify-content-end">
               <div class="sender card p-2 border-0">
                 <span class="mb-0">
@@ -92,34 +93,31 @@
                 </span>
               </div>
             </div>
-  
+
             <div class="col-12 text-start d-flex gap-1">
               <div>
                 <i class="fa-solid fa-robot fa-1x text-primary"></i>
               </div>
-              
+
               <div class="receiver card p-2 ms-end border-0">
-                <span class="mb-0">
-                  Absolutely! 
-                </span>
+                <span class="mb-0"> Absolutely! </span>
               </div>
             </div>
-  
+
             <div class="col-12 text-start d-flex gap-1">
               <div>
                 <i class="fa-solid fa-robot fa-1x text-primary"></i>
               </div>
-              
+
               <div class="receiver card p-2 ms-end border-0">
                 <span class="mb-0">
-                  Absolutely! I wouldn't miss it for the world. What time does it
-                  start?
+                  Absolutely! I wouldn't miss it for the world. What time does
+                  it start?
                 </span>
               </div>
             </div>
 
-
-            <div class="col-12 d-flex justify-content-end  mb-3">
+            <div class="col-12 d-flex justify-content-end mb-3">
               <div class="sender card p-2 border-0">
                 <span class="mb-0">
                   It kicks off at 8 PM. Can't wait to see you there!
@@ -127,12 +125,16 @@
               </div>
             </div>
           </div>
-          
-          <hr class="mt-0"/>
+
+          <hr class="mt-0" />
           <div class="">
             <form action="#">
               <div class="input-group">
-                <input type="text" class="form-control" />
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Your message..."
+                />
 
                 <button
                   href="#"
@@ -148,21 +150,20 @@
       </div>
     </div>
 
-    <section class="chat-icon">
-      <div class="container">
+    <section class="container">
+      <div class="chat-icon">
         <div class="position-fixed bottom-0 end-0 me-4 mb-3">
-            <a href="#" id="toggleChat">
-              <i class="fas fa-comment fa-2x text-white shake chat-toggle"></i>
-            </a>
+          <a href="#" id="chatToggleIcon">
+            <i class="fas fa-comment fa-2x text-white shake chat-toggle"></i>
+          </a>
         </div>
       </div>
     </section>
-      
+
     {% endif %}
 
     <!-- <div class="shake">Shake me</div>
 <img class="shake" src="https://www.w3.org/2008/site/images/logo-w3c-screen-lg" /> -->
-      
 
     <!-- footer -->
     {% include 'includes/footer.html' %}

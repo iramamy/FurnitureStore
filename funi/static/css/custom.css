@@ -142,3 +142,29 @@ textarea {
 .chat-toggle {
     animation: horizontal-shaking 0.5s ease-in-out infinite;
 }
+
+
+/* Styles for small screens */
+@media (max-width: 767px) {
+    .botbox {
+        position: fixed;
+        top: 10%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0 auto !important;
+        max-height: 600px;
+        border-radius: 0;
+        display: block;
+    }
+
+    .message-container {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 80%;
+      }
+  
+    .chat-icon {
+      display: none; /* Hide chat icon on small screens */
+    }
+  }

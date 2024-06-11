@@ -71,7 +71,7 @@
 
 })()
 
-document.getElementById('toggleChat').addEventListener('click', function(event) {
+document.getElementById('chatToggleIcon').addEventListener('click', function(event) {
 	event.preventDefault();
 	var chat = document.getElementById('chat');
 	var chatToggle = document.querySelector('.chat-toggle');
@@ -83,6 +83,22 @@ document.getElementById('toggleChat').addEventListener('click', function(event) 
 		chatToggle.classList.add('chat-toggle');
 	}
 });
+
+document.getElementById('chatToggleNav').addEventListener('click', function(event) {
+	event.preventDefault();
+	var chat = document.getElementById('chat');
+	if (chat.style.display === 'none' || chat.style.display === '') {
+		chat.style.display = 'block';
+	  } else {
+		chat.style.display = 'none';
+	  }
+	});
+	
+	document.getElementById('closeChat').addEventListener('click', function(event) {
+	  event.preventDefault();
+	  document.getElementById('chat').style.display = 'none';
+	});
+	
 
 document.getElementById('closeChat').addEventListener('click', function(event) {
 	event.preventDefault();
