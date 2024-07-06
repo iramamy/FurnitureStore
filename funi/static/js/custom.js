@@ -70,37 +70,3 @@
 	sitePlusMinus();
 
 })()
-
-document.getElementById('chatToggleIcon').addEventListener('click', function(event) {
-	event.preventDefault();
-	var chat = document.getElementById('chat');
-	var chatToggle = document.querySelector('.chat-toggle');
-	if (chat.style.display === 'none' || chat.style.display === '') {
-		chat.style.display = 'block';
-		chatToggle.classList.remove('chat-toggle');
-	} else {
-		chat.style.display = 'none';
-		chatToggle.classList.add('chat-toggle');
-	}
-});
-
-document.getElementById('chatToggleNav').addEventListener('click', function(event) {
-	event.preventDefault();
-	var chat = document.getElementById('chat');
-	if (chat.style.display === 'none' || chat.style.display === '') {
-		chat.style.display = 'block';
-	  } else {
-		chat.style.display = 'none';
-	  }
-	});
-	
-	document.getElementById('closeChat').addEventListener('click', function(event) {
-	  event.preventDefault();
-	  document.getElementById('chat').style.display = 'none';
-	});
-	
-
-document.getElementById('closeChat').addEventListener('click', function(event) {
-	event.preventDefault();
-	document.getElementById('chat').style.display = 'none';
-});

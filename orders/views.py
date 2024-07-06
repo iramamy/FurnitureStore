@@ -179,11 +179,8 @@ def order_completed(request):
     order_number = request.GET.get('order_number')
     transID = request.GET.get('payment_id')
 
-    print("ABOUT TO ENTER TRY BLOCK")
-    print('order number ', order_number)
-    print('order transID ', transID)
     try:
-        print("ENTER TRY BLOCK")
+
         order = Order.objects.get(
             order_number=order_number,
             is_ordered=True,
@@ -219,5 +216,4 @@ def order_completed(request):
         return render(request, 'orders/order_completed.html', context)
 
     except (Payment.DoesNotExist, Order.DoesNotExist):
-        print("ENTER EXCEPT BLOCK")
         return redirect('home')

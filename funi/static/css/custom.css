@@ -12,7 +12,6 @@
 }
 
 /* Show stars */
-
 .rate > label:before {
     display: inline-block;
     font-size: 1rem;
@@ -23,9 +22,7 @@
     cursor: pointer;
 }
 
-
 /* half star */
-
 .rate .half:before {
     content: "\f089";
     position: absolute;
@@ -115,32 +112,16 @@ textarea {
 }
 
 
-@keyframes horizontal-shaking {
-    0% {
-      transform: translateX(0);
-    }
-    25% {
-      transform: translateX(5px);
-    }
-    50% {
-      transform: translateX(-5px);
-    }
-    75% {
-      transform: translateX(5px);
-    }
-    100% {
-      transform: translateX(0);
-    }
+.chat-icon {
+    z-index: 100;
 }
 
 .chat-icon a i{
-    background-color: #3b5d50;
+    background-color: #f9bf29;;
     padding: 10px 15px;
     border-radius: 50%;
-}
-
-.chat-toggle {
-    animation: horizontal-shaking 0.5s ease-in-out infinite;
+    z-index: 100;
+    cursor: pointer;
 }
 
 
@@ -153,7 +134,7 @@ textarea {
         right: 0;
         bottom: 0;
         margin: 0 auto !important;
-        max-height: 600px;
+        height: 500px;
         border-radius: 0;
         display: block;
     }
@@ -161,10 +142,8 @@ textarea {
     .message-container {
         overflow-x: hidden;
         overflow-y: auto;
-        height: 80%;
+        /* height: 150px; */
       }
   
-    .chat-icon {
-      display: none; /* Hide chat icon on small screens */
-    }
+    
   }
