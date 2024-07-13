@@ -3,7 +3,6 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from .models import Room, Message
 
-answer = 'This is a sample answer!'
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -44,7 +43,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'type': 'send_message',
             'message': bot_message
         }
-        
+
         await self.channel_layer.group_send(
             self.room_name, event
         )
