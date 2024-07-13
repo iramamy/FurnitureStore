@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
     "cart",
     "orders",
     "admin_honeypot",  # django-admin-honeypot-updated-2021
+    "chat",
+    "channels",
 ]
 
 
@@ -81,11 +84,14 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "cart.context_processor.counter",
+                "chat.context_processor.chat_context",
+                "chat.msg_context_processor.room_message",
             ],
         },
     },
 ]
 
+ASGI_APPLICATION = "funi.asgi.application"
 WSGI_APPLICATION = "funi.wsgi.application"
 AUTH_USER_MODEL = "accounts.Account"    
 
@@ -164,3 +170,10 @@ EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}

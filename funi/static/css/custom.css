@@ -84,24 +84,25 @@ textarea {
 
 .botbox {
     z-index: 100;
-    max-width: 400px;
-    max-height: 90%;
+    width: 400px;
+    height: 500px;
 }
 
 .message-container {
     overflow-x: hidden;
     overflow-y: auto;
-    height: 300px;
+    max-height: 350px;
+    border-top: 0.5px solid rgb(173, 173, 173);
   }
   
 
-.message-container .sender {
+.message-container .msg-sender {
     background-color: #3b5d50;
     color: #fff;
     max-width: 80%;
 }
 
-.message-container .receiver {
+.message-container .msg-receiver {
     background-color: #dbdbdb;
     color: black;
     max-width: 80%;
@@ -124,7 +125,6 @@ textarea {
     cursor: pointer;
 }
 
-
 /* Styles for small screens */
 @media (max-width: 767px) {
     .botbox {
@@ -134,16 +134,13 @@ textarea {
         right: 0;
         bottom: 0;
         margin: 0 auto !important;
-        height: 500px;
+        height: 550px;
         border-radius: 0;
         display: block;
     }
 
     .message-container {
-        overflow-x: hidden;
-        overflow-y: auto;
-        /* height: 150px; */
+        max-height: 380px;
       }
-  
-    
+
   }

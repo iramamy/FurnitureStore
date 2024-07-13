@@ -12,7 +12,7 @@
   class="card rounded-3 position-fixed bottom-0 end-0 me-4 mb-2 botbox z-5"
   id="chat"
 >
-  <div class="card-body">
+  <div class="card-body h-100 d-flex flex-column">
     <div class="card-title d-flex justify-content-between">
       <div class="d-flex align-items-center">
         <div>
@@ -26,16 +26,14 @@
       </div>
     </div>
 
-    <hr />
-
-    <div class="d-flex flex-column">
-      <div class="row message-container gap-1 mb-3">
+    <div class="d-flex justify-content-between flex-column flex-fill">
+      <div class="row message-container gap-1 mb-3" id="message-container">
         <div class="col-12 text-start d-flex gap-1 mt-2">
           <div>
             <i class="fa-solid fa-robot fa-1x text-primary"></i>
           </div>
-
-          <div class="receiver card p-2 ms-end border-0">
+          <!-- Greating -->
+          <div class="msg-receiver card p-2 ms-end border-0">
 
             {% if request.user.is_authenticated %}
               <span class="mb-0 lh-1">
@@ -46,80 +44,47 @@
                 Hello, how can I help you to day?
               </span>
             {% endif %}
-              
             
           </div>
+          <!-- // Greating -->
         </div>
-
-        <div class="col-12 d-flex justify-content-end">
-          <div class="sender card p-2 border-0">
-            <span class="mb-0">
-              It kicks off at 8 PM. Can't wait to see you there!
-            </span>
+        
+        {% for msg in get_messages %}
+          {% if msg.sender == chat_username %}
+          <div class="d-flex justify-content-end">
+            <div class="msg-sender card lh-1">
+              <span class="mb-0  p-1">
+                {{ msg.message }}
+              </span>
+            </div>
           </div>
-        </div>
-
-        <div class="col-12 text-start d-flex gap-1">
-          <div>
-            <i class="fa-solid fa-robot fa-1x text-primary"></i>
-          </div>
-
-          <div class="receiver card p-2 ms-end border-0">
-            <span class="mb-0"> Absolutely! </span>
-          </div>
-        </div>
-
-        <div class="col-12 text-start d-flex gap-1">
-          <div>
-            <i class="fa-solid fa-robot fa-1x text-primary"></i>
-          </div>
-
-          <div class="receiver card p-2 ms-end border-0">
-            <span class="mb-0">
-              Absolutely! I wouldn't miss it for the world. What time does
-              it start?
-            </span>
-          </div>
-        </div>
-
-        <div class="col-12 d-flex justify-content-end mb-3">
-          <div class="sender card p-2 border-0">
-            <span class="mb-0">
-              It kicks off at 8 PM. Can't wait to see you there!
-            </span>
-          </div>
-        </div>
-
-        <div class="col-12 text-start d-flex gap-1">
-          <div>
-            <i class="fa-solid fa-robot fa-1x text-primary"></i>
-          </div>
-
-          <div class="receiver card p-2 ms-end border-0">
-            <span class="mb-0">
-              Absolutely! I wouldn't miss it for the world. What time does
-              it start?
-            </span>
-          </div>
-        </div>
-
-        <div class="col-12 d-flex justify-content-end mb-3">
-          <div class="sender card p-2 border-0">
-            <span class="mb-0">
-              It kicks off at 8 PM. Can't wait to see you there!
-            </span>
-          </div>
-        </div>
+          {% else %}
+          <div class="col-12 text-start d-flex gap-1">
+            <div>
+              <i class="fa-solid fa-robot fa-1x text-primary"></i>
+            </div>
+  
+            <div class="msg-receiver lh-1 card p-2 ms-end border-0">
+              <span class="mb-0">
+                {{msg.message}}
+              </span>
+            </div>
+          </div>  
+        {% endif %}
+        {% endfor %}
+          
       </div>
 
-      <hr class="mt-0" />
       <div class="">
-        <form action="#">
+        <hr class="mt-0"/>
+        <form action="#" method="POST" id="message-form">
+          {% csrf_token %}
           <div class="input-group">
             <input
               type="text"
               class="form-control"
               placeholder="Your message..."
+              id="sender-msg"
             />
 
             <button
@@ -135,3 +100,89 @@
     </div>
   </div>
 </div>
+
+<script>
+  const socket_url = `ws://${window.location.host}/ws/message/{{chat_room_name}}/`;
+
+  const socket = new WebSocket(socket_url);
+
+  // Send message to backend
+  const message_form = document.getElementById('message-form');
+  message_form.addEventListener('submit', function (event){
+    event.preventDefault()
+
+    let message_sent = document.getElementById('sender-msg').value;
+
+    socket.send(
+      JSON.stringify({
+        message: message_sent,
+        room_name: "{{chat_room_name}}",
+        sender: "{{chat_username}}"
+      })
+    );
+    document.getElementById('sender-msg').value = '';
+  });
+
+  const chat_container = document.getElementById('message-container');
+  const scroll_to_bottom = () => {
+    chat_container.scrollTop = chat_container.scrollHeight;
+  };
+
+  // Receive message from backend
+  socket.addEventListener('message', (e) => {
+    const data = JSON.parse(e.data)['message'];
+
+    let sender = data['sender'];
+    let content = data['message'];
+    let message_html = '';
+
+    if (sender == "{{chat_username}}") {
+      message_html = `
+        <div class="d-flex justify-content-end">
+          <div class="msg-sender card lh-1">
+            <span class="mb-0  p-1">
+              ${content}
+            </span>
+          </div>
+        </div>
+      `;
+    } else {
+      message_html = `
+        <div class="col-12 text-start d-flex gap-1">
+          <div>
+            <i class="fa-solid fa-robot fa-1x text-primary"></i>
+          </div>
+
+          <div class="msg-receiver lh-1 card p-2 ms-end border-0">
+            <span class="mb-0">
+              ${content}
+            </span>
+          </div>
+        </div> 
+      `;
+    }
+    chat_container.innerHTML += message_html;
+    scroll_to_bottom();
+  });
+
+  // Open chat
+  document.getElementById('chatToggleIcon').addEventListener('click', function (e) {
+    e.preventDefault();
+    const chat = document.getElementById('chat');
+    const isVisible = chat.style.display === 'block';
+    chat.style.display = isVisible ? 'none' : 'block';
+    
+    // Scroll to bottom
+    if (!isVisible) {
+      scroll_to_bottom();
+    }
+  });
+
+  // Close chat
+  document.getElementById('closeChat').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('chat').style.display = 'none';
+  });
+
+
+</script>
