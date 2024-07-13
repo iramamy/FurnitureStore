@@ -71,6 +71,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 sender=data['sender'],
                 message=data['message']
             )
-            print('New message', data['message'])
+
         except Room.DoesNotExist:
             pass
