@@ -147,19 +147,24 @@
         </div>
       `;
     } else {
-      message_html = `
-        <div class="col-12 text-start d-flex gap-1">
-          <div>
-            <i class="fa-solid fa-robot fa-1x text-primary"></i>
-          </div>
+      const delay = 1300; // Delay in milliseconds
+      setTimeout(() => {
+        message_html = `
+          <div class="col-12 text-start d-flex gap-1">
+            <div>
+              <i class="fa-solid fa-robot fa-1x text-primary"></i>
+            </div>
 
-          <div class="msg-receiver lh-1 card p-2 ms-end border-0">
-            <span class="mb-0">
-              ${content}
-            </span>
-          </div>
-        </div> 
-      `;
+            <div class="msg-receiver lh-1 card p-2 ms-end border-0">
+              <span class="mb-0">
+                ${content}
+              </span>
+            </div>
+          </div> 
+        `;
+        chat_container.innerHTML += message_html; // Add message after delay
+        scroll_to_bottom(); // Scroll to bottom after receiving the message
+      }, delay);
     }
     chat_container.innerHTML += message_html;
     scroll_to_bottom();

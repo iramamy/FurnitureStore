@@ -3,6 +3,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from .models import Room, Message
 
+answer = 'This is a sample answer!'
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -25,6 +26,28 @@ class ChatConsumer(AsyncWebsocketConsumer):
         }
 
         await self.channel_layer.group_send(self.room_name, event)
+
+        await self.bot_answer(data_json)
+
+    async def bot_answer(self, received_message):
+        user_message = received_message['message']
+
+        bot_response = 'This is a sample message from the bot'
+
+        bot_message = {
+            "sender": 'FurniBot',
+            "message": bot_response,
+            "room_name": received_message['room_name']
+        }
+
+        event = {
+            'type': 'send_message',
+            'message': bot_message
+        }
+        
+        await self.channel_layer.group_send(
+            self.room_name, event
+        )
 
     async def send_message(self, event):
         data = event['message'] 
