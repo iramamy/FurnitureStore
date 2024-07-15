@@ -236,14 +236,17 @@
                 <div class="testimonial-slider-wrap text-center">
 
                     <div id="testimonial-nav">
-                        <span class="prev" data-controls="prev"><span class="fa fa-chevron-left"></span></span>
-                        <span class="next" data-controls="next"><span class="fa fa-chevron-right"></span></span>
+                        <span class="prev d-flex align-items-center mx-auto" data-controls="prev">
+                            <span class="fa fa-chevron-left"></span>
+                        </span>
+                        <span class="next d-flex align-items-center mx-auto" data-controls="next">
+                            <span class="fa fa-chevron-right"></span>
+                        </span>
                     </div>
 
                     <div class="testimonial-slider">
 
                         {% for i in testimonials %}
-                        
                         
                         <div class="item">
                             <h3 class="text-dark">{{i.testimonial.title}}</h3>
