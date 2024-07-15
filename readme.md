@@ -1,3 +1,4 @@
+# E-commerce Application with Customer Service Chatbot
 
 This e-commerce application contains all the essential features found in a standard e-commerce website. Users can:
 
