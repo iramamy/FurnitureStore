@@ -19,3 +19,5 @@ The backend includes **user registration and email verification** to ensure secu
 - 🚚 **Delivery**
 - 🔒 **Warranty information**
 - 🛠️ **And many more topics**
+
+The HTML template for this application is sourced from **[ThemeWagon](https://themewagon.com/)**.
