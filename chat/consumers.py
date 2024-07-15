@@ -2,6 +2,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from .models import Room, Message
+from .botanswer import chatbot_response
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -31,7 +32,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def bot_answer(self, received_message):
         user_message = received_message['message']
 
-        bot_response = 'This is a sample message from the bot'
+        bot_response = chatbot_response(user_message)
 
         bot_message = {
             "sender": 'FurniBot',

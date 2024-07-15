@@ -4,3 +4,6 @@ pillow==10.4.0
 python-decouple==3.8
 daphne==4.1.2
 channels==4.1.0
+keras==3.4.1
+nltk==3.8.1
+tensorflow==2.17.0
