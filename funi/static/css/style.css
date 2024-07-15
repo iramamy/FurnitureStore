@@ -300,21 +300,6 @@ a {
   margin: .3rem 0 .3rem .3rem;
 }
 
-/* Footer social icon */
-
-.custom-social {
-  /* display: flex; */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-}
-
-.custom-social li a{
-  padding: 12px /* Adjust spacing between icons */
-}
-
-.custom-social li:last-child {
-  margin-right: 0; /* Remove margin for the last icon */
-}
 
 .header-icon {
   text-decoration: none; /* Remove underline from links */

@@ -334,11 +334,7 @@
         "When will my package arrive?",
         "Delivery timeframe?",
         "Shipping duration?",
-        "Any delays in delivery?",
-        "If your order is within delivery period, We recommend you to please wait during this period since our Delivery Heroes make 3 attempts to deliver your order!",
-        "If your order is past up to 3 days after delivery period, There may be logistic issues causing a delay in delivery. Please type 'Common reasons for delivery delay' to know more about this.",
-        "We appreciate if you could wait for your items as most orders are delivered successfully within this period.",
-        "If your order is past more than 3 days, Since there may be unexpected issues causing delivery delays, you can click on 'Need more Help' for further assistance."
+        "Any delays in delivery?"
       ],
       "responses": [
         "We are really sorry if there has been a delay in your order! If your order is within delivery period, We recommend you to please wait during this period since our Delivery Heroes make 3 attempts to deliver your order!",

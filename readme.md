@@ -22,4 +22,4 @@ The backend includes **user registration and email verification** to ensure secu
 
 > **Note:** The chatbot's responses might be a bit weird since the training data was created by a non-professional for demo purposes only. To achieve a professional and accurate customer service experience, assistance from experienced personnel is needed to create the training data.
 
-The HTML template for this application is sourced from **[ThemeWagon](https://themewagon.com/)**.
+The HTML template for this application is sourced from **[ThemeWagon](https://themewagon.com/themes/furni-online-store/)**.
