@@ -12,6 +12,11 @@ This e-commerce application contains **`all the essential features`** found in a
 
 ## Preview
 ![Shop](./images/shop.png)
+![Services](./images/services.png)
+![Item](./images/singleitem.png)
+![Cart](./images/cart.png)
+![Checkout](./images/checkout.png)
+![Payment](./images/payment.png)
 
 The backend includes **user registration and email verification** to ensure secure access. Additionally, the application features a customer service **`chatbot`** designed and trained to function as **`an assistant`**, capable of answering all user queries regarding:
 
@@ -22,6 +27,9 @@ The backend includes **user registration and email verification** to ensure secu
 - 🚚 **Delivery**
 - 🔒 **Warranty information**
 - 🛠️ **And many more topics**
+
+![Chatbot](./images/chatanswer.png)
+
 
 > **Note:** The chatbot's responses might be a bit weird since the training data was created by a non-professional for demo purposes only. To achieve a professional and accurate customer service experience, assistance from experienced personnel is needed to create the training data.
 
