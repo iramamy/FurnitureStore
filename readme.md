@@ -10,6 +10,9 @@ This e-commerce application contains **`all the essential features`** found in a
 - ✍️ **Write testimonials about the service**
 - ⭐ **Write reviews about products**
 
+## Preview
+![Shop](./images/shop.png)
+
 The backend includes **user registration and email verification** to ensure secure access. Additionally, the application features a customer service **`chatbot`** designed and trained to function as **`an assistant`**, capable of answering all user queries regarding:
 
 - 📍 **Store location**
