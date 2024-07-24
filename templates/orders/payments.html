@@ -1,192 +1,223 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 <div class="container">
-    <h3 class="text-center mt-4 text-black"> Review your product and proceed to payment</h3>
-    <div class="row my-4">
-        <div class="col-lg-8">
+  <h3 class="text-center mt-4 text-black">
+    Review your product and proceed to payment
+  </h3>
+  <div class="row my-4">
+    <div class="col-lg-8">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title text-black">Billing Address</h5>
+          <p class="card-text">
+            {{order.full_name}} <br />
+            {{order.full_address}} <br />
+            {{order.email}} <br />
+            {{order.state}} {{order.city}} {% if order.order_note %}
+            <br />
+            {{order.order_note}} <br />
+            {% endif %}
+          </p>
+        </div>
+      </div>
 
-            <div class="card mb-1">
-                <div class="card-body">
-                    <h5 class="card-title text-black">Billing Address</h5>
-                    <p class="card-text">
-                    {{order.full_name}} <br>
-                    {{order.full_address}} <br>
-                    {{order.email}} <br>
-                    {{order.state}} {{order.city}} 
-                    {% if order.order_note %}
-                    <br>
-                    {{order.order_note}} <br>
-                    {% endif %}
-                    </p>
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title text-black">Payment</h5>
+          <p class="card-text">Paypal</p>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <table class="table table-border-less table-shopping-cart">
+          <h5 class="text-black">Review products</h5>
+          <thead>
+            <tr>
+              <th scope="col">Image</th>
+              <th scope="col">Product</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in cart_item %}
+            <tr>
+              <td>
+                <a href="{{ item.product.get_url }}"
+                  ><img
+                    src="{{ item.product.images.url }}"
+                    alt="Image"
+                    class="img-sm"
+                /></a>
+              </td>
+              <td class="product-name">
+                <p class="text-black">
+                  <a
+                    href="{{ item.product.get_url }}"
+                    style="text-decoration: none"
+                    >{{item.product.product_name}}</a
+                  >
+                </p>
+              </td>
+              <td>
+                <div
+                  class="input-group mb-3 d-flex align-items-center quantity-container"
+                  style="max-width: 120px"
+                >
+                  {{ item.quantity }}
                 </div>
-            </div>
+              </td>
+              <td>${{ item.subtotal }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-            <div class="card mb-1">
-                <div class="card-body">
-                    <h5 class="card-title text-black">Payment</h5>
-                    <p class="card-text">Paypal</p>
-                </div>
-            </div>
-
-            <div class="card-body">
-                <table class="table table-border-less table-shopping-cart">
-                    <h5 class="text-black">Review products</h5>
-                    <thead>
-                        <tr>
-                            <th scope="col">Image</th>
-                            <th scope="col">Product</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in cart_item %}
-                        <tr>
-                            <td>
-                                <a href="{{ item.product.get_url }}"><img src="{{ item.product.images.url }}" alt="Image" class="img-sm"></a>
-                            </td>
-                            <td class="product-name">
-                                <p class="text-black"><a href="{{ item.product.get_url }}" style="text-decoration: none;">{{item.product.product_name}}</a></p>
-                            </td>
-                            <td>
-                                <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                                    {{ item.quantity }}
-                                </div>
-                            </td>
-                            <td>
-                                ${{ item.subtotal }}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        
-                    </tbody>
-                </table>
-
-            </div>
+    <div class="col-lg-4">
+      <div class="card-body text-dark">
+        <div class="row d-flex align-items-center">
+          <div class="col d-flex justify-content-start">
+            <h6>Subtotal:</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <p>${{total}}</p>
+          </div>
         </div>
 
-        <div class="col-lg-4">
-
-            <div class="card-body text-dark">
-                <div class="row d-flex align-items-center">
-                    <div class="col d-flex justify-content-start">
-                        <h6>Subtotal:</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end">
-                        <p>${{total}}</p>
-                    </div>
-                </div>
-
-                <div class="row d-flex align-items-center">
-                    <div class="col d-flex justify-content-start">
-                        <h6>Shipping:</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end">
-                        <p>${{shipping_handling}}</p>
-                    </div>
-                </div>
-
-                <div class="row d-flex align-items-center">
-                    <div class="col d-flex justify-content-start">
-                        <h6>Tax:</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end">
-                        <p>${{tax}}</p>
-                    </div>
-                </div>
-
-                <div class="row d-flex align-items-center">
-                    <div class="col d-flex justify-content-start">
-                        <h6>Grand total:</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end">
-                        <p>${{grand_total}}</p>
-                    </div>
-                </div>
-                <hr>
-            </div> <!-- card-body.// -->
-            
-
-                <div class=" d-grid gap-2">
-                    <div id="paypal-button-container"></div>
-                </div>
-            
-            </div>
+        <div class="row d-flex align-items-center">
+          <div class="col d-flex justify-content-start">
+            <h6>Shipping:</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <p>${{shipping_handling}}</p>
+          </div>
         </div>
 
+        <div class="row d-flex align-items-center">
+          <div class="col d-flex justify-content-start">
+            <h6>Tax:</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <p>${{tax}}</p>
+          </div>
+        </div>
+
+        <div class="row d-flex align-items-center">
+          <div class="col d-flex justify-content-start">
+            <h6>Grand total:</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <p>${{grand_total}}</p>
+          </div>
+        </div>
+        <hr />
+      </div>
+      <!-- card-body.// -->
+
+      <div id="spinner" class="spinner">
+        <div class="preloader d-flex align-items-center justify-content-center">
+          <div class="preloader-inner position-relative">
+            <div class="text-center">
+              <img src="{% static 'images/spinner.gif' %}" alt="spinner" />
+            </div>
+            <span> Processing payment ... </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- <span>Hi</span> -->
+
+      <div class="d-grid gap-2">
+        <div id="paypal-button-container"></div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <script>
-
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-          const cookies = document.cookie.split(';');
-          for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-            }
-          }
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
         }
-        return cookieValue;
       }
+    }
+    return cookieValue;
+  }
 
-    var amount = '{{ grand_total }}';
-    var url = '{% url "payments" %}';
-    var csrftoken = getCookie('csrftoken');
-    var orderID = '{{order.order_number}}';
-    var payment_method = 'PayPal';
-    var redirect_url = '{% url "order_completed" %}';
+  var amount = "{{ grand_total }}";
+  var url = '{% url "payments" %}';
+  var csrftoken = getCookie("csrftoken");
+  var orderID = "{{order.order_number}}";
+  var payment_method = "PayPal";
+  var redirect_url = '{% url "order_completed" %}';
 
-    paypal.Buttons({
+  paypal
+    .Buttons({
+      style: {
+        shape: "pill",
+        label: "pay",
+        height: 40,
+      },
 
-        style: {
-            shape: 'pill',
-            label: 'pay',
-            height: 40,
-        },
+      createOrder: function (data, actions) {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: amount,
+              },
+            },
+          ],
+        });
+      },
 
-        createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: amount,
-                        }
-                    }]
-                });
-        },
+      onApprove: function (data, actions) {
 
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                console.log(details);
-                sendData();
-                function sendData() {
-                    fetch(url, {
-                        method: "POST",
-                        headers: {
-                            "Content-type": "application/json",
-                            "X-CSRFtoken": csrftoken,
-                        },
-                        body: JSON.stringify({
-                            orderID: orderID,
-                            transID: details.id,
-                            payment_method: payment_method,
-                            status: details.status,
-                        }),
-                    })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        window.location.href = redirect_url+'?order_number='+data.order_number+'&payment_id='+data.transID;
-                    });
-                }
-            });
-        }
-    }).render('#paypal-button-container');
+        document.getElementById('spinner').style.display = 'block';
+
+        return actions.order.capture().then(function (details) {
+          console.log(details);
+          sendData();
+          function sendData() {
+            fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-type": "application/json",
+                "X-CSRFtoken": csrftoken,
+              },
+              body: JSON.stringify({
+                orderID: orderID,
+                transID: details.id,
+                payment_method: payment_method,
+                status: details.status,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+
+                document.getElementById('spinner').style.display = 'none';
+
+                window.location.href =
+                  redirect_url +
+                  "?order_number=" +
+                  data.order_number +
+                  "&payment_id=" +
+                  data.transID;
+              });
+          }
+        });
+      },
+    })
+    .render("#paypal-button-container");
 </script>
 
 {% endblock %}
